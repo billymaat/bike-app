@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { RouterOutlet } from '@angular/router';
 import { SideMenuItems } from './side-menu-items';
+import { CustomSidenavComponent } from "./components/custom-sidenav/custom-sidenav.component";
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
@@ -22,7 +23,8 @@ import { SideMenuItems } from './side-menu-items';
     MatListModule,
     MatIconModule,
     AsyncPipe,
-  ]
+    CustomSidenavComponent
+]
 })
 export class NavigationComponent {
   private breakpointObserver = inject(BreakpointObserver);

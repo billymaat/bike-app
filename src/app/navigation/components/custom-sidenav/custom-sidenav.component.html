@@ -1,0 +1,13 @@
+<div class="sidenav-header">
+    <img src="profile.jpg" wigth="150" height="150" alt="Profile Picture">
+    <div class="header-text">
+        <h2>MyApp</h2>
+        <p>Billy</p>
+    </div>
+</div>
+<mat-nav-list>    
+    <a mat-list-item *ngFor="let item of menuItems()">
+        <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
+        <span matListItemTitle>{{ item.label }}</span>
+    </a>
+</mat-nav-list>

@@ -4,14 +4,10 @@
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
       [opened]="(isHandset$ | async) === false">
     <mat-toolbar>Menu</mat-toolbar>
-    <mat-nav-list>
-      @for (link of sideMenuItems; track link) {
-        <a mat-list-item href="{{link.route}}">{{link.label}}</a>
-      }
-    </mat-nav-list>
+    <app-custom-sidenav/>
   </mat-sidenav>
-  <mat-sidenav-content>
-    <mat-toolbar color="primary">
+  <mat-sidenav-content class="padding: 24px">
+    <mat-toolbar>
       @if (isHandset$ | async) {
         <button
           type="button"
