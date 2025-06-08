@@ -1,22 +1,14 @@
+<mat-toolbar color="primary" class="mat-elevation-z3">
+  <button mat-icon-button (click)="doSomething()">
+    <mat-icon>menu</mat-icon>
+  </button>
+</mat-toolbar>
 <mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #drawer class="sidenav" fixedInViewport
-      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-      [mode]="(isHandset$ | async) ? 'over' : 'side'"
-      [opened]="(isHandset$ | async) === false">
-    <mat-toolbar>Menu</mat-toolbar>
-    <app-custom-sidenav/>
+  <mat-sidenav #drawer opened mode="side" [style.width]="sideNavWidth()">
+    <app-custom-sidenav [collapsed]="collapsed()"/>
   </mat-sidenav>
-  <mat-sidenav-content class="padding: 24px">
+  <mat-sidenav-content class="padding: 24px" [style.margin-left]="sideNavWidth()">
     <mat-toolbar>
-      @if (isHandset$ | async) {
-        <button
-          type="button"
-          aria-label="Toggle sidenav"
-          mat-icon-button
-          (click)="drawer.toggle()">
-          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-        </button>
-      }
       <span>Bike App</span>
     </mat-toolbar>
     <router-outlet />

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { AsyncPipe } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -36,4 +36,13 @@ export class NavigationComponent {
     );
   
   public sideMenuItems = inject(SideMenuItems).menuItems;
+
+  collapsed = signal<boolean>(false);
+
+  sideNavWidth = computed(() => this.collapsed() ? '65px' : '250px');
+
+  doSomething() {
+    console.log('Button clicked!');
+    this.collapsed.set(!this.collapsed())
+  }
 }
