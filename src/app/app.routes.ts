@@ -3,6 +3,7 @@ import { HomePage } from './pages/home/home.page';
 import { DashboardPage } from './pages/dashboard/dashboard.page';
 import { UsersPage } from './pages/users/users.page';
 import { SettingsPage } from './pages/settings/settings.page';
+import { AddEventPage } from './pages/add-event/add-event.page';
 
 export const routes: Routes = [
   {
@@ -13,6 +14,10 @@ export const routes: Routes = [
     path: 'dashboard',
     component: DashboardPage,
   },
+ {
+    path: 'add-event',
+    component: AddEventPage
+  },
   {
     path: 'users',
     component: UsersPage
@@ -20,5 +25,5 @@ export const routes: Routes = [
   {
     path: 'settings',
     component: SettingsPage
-  }
+  },
 ];

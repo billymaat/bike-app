@@ -1,0 +1,28 @@
+<div class="page-container">
+  <h1 class="mat-h1">Add Event</h1>
+
+  <form class="event-form" [formGroup]="eventForm" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="fill">
+      <mat-label>Event Name</mat-label>
+      <input matInput formControlName="name" required>
+      <mat-error *ngIf="eventForm.get('name')?.hasError('required')">Event name is required.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Date</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="date" required>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error *ngIf="eventForm.get('date')?.hasError('required')">Date is required.</mat-error>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit" [disabled]="eventForm.invalid">Add Event</button>
+  </form>
+
+  <div class="event-list">
+    <h2>Upcoming Events</h2>
+    <ul>
+      <li *ngFor="let event of events()">{{ event.name }} - {{ event.date | date }}</li>
+    </ul>
+  </div>
+</div>
