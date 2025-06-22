@@ -11,6 +11,7 @@ import { CycleEvent } from '../../models/cycle-event';
 import { CycleEventStore } from '../../store/cycle-event-store';
 import { MatListModule } from '@angular/material/list';
 import { MatIcon } from '@angular/material/icon';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-event',
@@ -25,14 +26,13 @@ import { MatIcon } from '@angular/material/icon';
     MatListModule,
     MatIcon
   ],
-  providers: [provideNativeDateAdapter(),
-    CycleEventStore,
-  ],
+  providers: [provideNativeDateAdapter()],
   templateUrl: './add-event.page.html',
   styleUrl: './add-event.page.scss'
 })
 export class AddEventPage {
   readonly store = inject(CycleEventStore);
+  readonly router = inject(Router);
 
   eventForm = new FormGroup({
     name: new FormControl(''),
@@ -44,9 +44,8 @@ export class AddEventPage {
   idCounter: number = 4;
   events: Signal<CycleEvent[]>;
 
-  constructor(private addEventService: AddEventService) {
+  constructor() {
       this.events = this.store.entities;
-
       console.log(this.events());
   }
 
@@ -61,6 +60,10 @@ export class AddEventPage {
     })
   }
 
+  selectEvent(event: CycleEvent) {
+    this.router.navigate(['/edit-event', event.id]);
+    console.log('Selected event:', event);
+  }
 
   deleteEvent(event: CycleEvent) {
     this.store.removeCycleEvent(event.id);

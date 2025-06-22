@@ -22,7 +22,7 @@
   <div class="event-list">
     <h2>Upcoming Events</h2>
     <mat-list>
-      <mat-list-item *ngFor="let event of events(); let i = index">
+      <mat-list-item *ngFor="let event of events(); let i = index" (click)="selectEvent(event)">
           <span class="event-name">{{ event.name }}</span>
           <span class="event-date">{{ event.date | date }}</span>
           <button mat-icon-button color="warn" (click)="deleteEvent(event)" aria-label="Delete event">

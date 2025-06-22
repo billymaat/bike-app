@@ -53,6 +53,9 @@ export const CycleEventStore = signalStore(
     },
     removeCycleEvent: (eventId: number) => {
       patchState(store, removeEntity(eventId));
+    },
+    getCycleEvent: (eventId: number) => {
+      return store.entities().find(event => event.id === eventId) || null;
     }
   }))
 );
