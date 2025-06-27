@@ -1,26 +1,28 @@
 <div class="page-container">
-  <h1 class="mat-h1">Add Event</h1>
+  <h1 class="mat-h1">Events</h1>
   <div class="event-list">
     <h2>Upcoming Events</h2>
-    @for (event of events(); track event.id) {
-      <div style="margin-bottom: 16px;">
-        <mat-card style="padding: 10px;">
-          <mat-card-title>
-            <span>{{ event.name }}</span>
-            <button mat-icon-button color="primary" (click)="selectEvent(event)" aria-label="More details">
-              <mat-icon>more_vert</mat-icon>
-            </button>
-            <button mat-icon-button color="warn" (click)="deleteEvent($event, event)" aria-label="Delete event">
-              <mat-icon>delete</mat-icon>
-            </button>
-          </mat-card-title>
-          <mat-card-content>
-            <p>{{ event.date | date }}</p>
-            <p>{{ event.location }}</p>
-            <p>{{ event.description }}</p>
-          </mat-card-content>
-        </mat-card>
-      </div>
-    }
+    <div class="event-list-container">
+      @for (event of events(); track event.id) {
+        <div style="margin-bottom: 16px;">
+          <mat-card style="padding: 10px;">
+            <mat-card-title>
+              <span>{{ event.name }}</span>
+              <button mat-icon-button color="primary" (click)="selectEvent(event)" aria-label="More details">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <button mat-icon-button color="warn" (click)="deleteEvent($event, event)" aria-label="Delete event">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </mat-card-title>
+            <mat-card-content>
+              <p>{{ event.date | date }}</p>
+              <p>{{ event.location }}</p>
+              <p class="desc truncate-description">{{ event.description }}</p>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      }
+    </div>
   </div>
 </div>
