@@ -26,6 +26,6 @@
           <textarea matInput formControlName="description" rows="5"></textarea>
         </mat-form-field>
 
-        <button mat-raised-button color="primary" type="submit" [disabled]="eventForm.invalid || !eventForm.dirty">Update Event</button>
+        <button mat-raised-button color="primary" type="submit" [disabled]="eventForm.invalid || !eventForm.dirty || !isFormChanged()">Update Event</button>
     </form>
 </div>
