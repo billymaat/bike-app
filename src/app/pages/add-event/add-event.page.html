@@ -2,33 +2,31 @@
   <h1 class="mat-h1">Add Event</h1>
 
   <form class="event-form" [formGroup]="eventForm" (ngSubmit)="onSubmit()">
-    <mat-form-field appearance="fill">
-      <mat-label>Event Name</mat-label>
-      <input matInput formControlName="name" required>
-      <mat-error *ngIf="eventForm.get('name')?.hasError('required')">Event name is required.</mat-error>
-    </mat-form-field>
+    <div style="display: flex; flex-direction: column; gap: 16px;">
+      <mat-form-field appearance="fill">
+        <mat-label>Event Name</mat-label>
+        <input matInput formControlName="name" required>
+        <mat-error *ngIf="eventForm.get('name')?.hasError('required')">Event name is required.</mat-error>
+      </mat-form-field>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Date</mat-label>
-      <input matInput [matDatepicker]="picker" formControlName="date" required>
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-      <mat-error *ngIf="eventForm.get('date')?.hasError('required')">Date is required.</mat-error>
-    </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Date</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="date" required>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="eventForm.get('date')?.hasError('required')">Date is required.</mat-error>
+      </mat-form-field>
+      
+      <mat-form-field appearance="fill">
+        <mat-label>Location</mat-label>
+        <input matInput formControlName="location">
+      </mat-form-field>
 
+      <mat-form-field appearance="fill">
+        <mat-label>Description</mat-label>
+        <textarea matInput formControlName="description" rows="3"></textarea>
+      </mat-form-field>
+  </div>
     <button mat-raised-button color="primary" type="submit" [disabled]="eventForm.invalid">Add Event</button>
   </form>
-
-  <div class="event-list">
-    <h2>Upcoming Events</h2>
-    <mat-list>
-      <mat-list-item *ngFor="let event of events(); let i = index" (click)="selectEvent(event)">
-          <span class="event-name">{{ event.name }}</span>
-          <span class="event-date">{{ event.date | date }}</span>
-          <button mat-icon-button color="warn" (click)="deleteEvent(event)" aria-label="Delete event">
-            <mat-icon>delete</mat-icon>
-          </button>
-      </mat-list-item>
-    </mat-list>
-  </div>
 </div>

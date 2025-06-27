@@ -46,7 +46,6 @@ export class AddEventPage {
 
   constructor() {
       this.events = this.store.entities;
-      console.log(this.events());
   }
 
   onSubmit() {
@@ -58,14 +57,5 @@ export class AddEventPage {
       date: this.eventForm.value.date ? new Date(this.eventForm.value.date) : new Date(),
       location: this.eventForm.value.location || ''
     })
-  }
-
-  selectEvent(event: CycleEvent) {
-    this.router.navigate(['/edit-event', event.id]);
-    console.log('Selected event:', event);
-  }
-
-  deleteEvent(event: CycleEvent) {
-    this.store.removeCycleEvent(event.id);
   }
 }
