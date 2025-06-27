@@ -5,6 +5,7 @@ import {
   removeEntity,
   setAllEntities,
   setEntity,
+  updateEntity,
   withEntities,
 } from '@ngrx/signals/entities';
 import { SeedData } from './seed-data';
@@ -50,6 +51,9 @@ export const CycleEventStore = signalStore(
     },
     addCycleEvent: (event: CycleEvent) => {
       patchState(store, addEntity(event));
+    },
+    updateCycleEvent: (event: CycleEvent) => {
+      patchState(store, updateEntity( { id: event.id, changes: event }));
     },
     removeCycleEvent: (eventId: number) => {
       patchState(store, removeEntity(eventId));

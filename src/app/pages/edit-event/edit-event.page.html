@@ -3,19 +3,29 @@
     <form class="event-form" [formGroup]="eventForm" (ngSubmit)="onSubmit()">
     
         <mat-form-field appearance="fill">
-        <mat-label>Event Name</mat-label>
-        <input matInput formControlName="name" required>
-        <mat-error *ngIf="eventForm.get('name')?.hasError('required')">Event name is required.</mat-error>
+          <mat-label>Event Name</mat-label>
+          <input matInput formControlName="name" required>
+          <mat-error *ngIf="eventForm.get('name')?.hasError('required')">Event name is required.</mat-error>
         </mat-form-field>
     
         <mat-form-field appearance="fill">
-        <mat-label>Date</mat-label>
-        <input matInput [matDatepicker]="picker" formControlName="date" required>
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-        <mat-error *ngIf="eventForm.get('date')?.hasError('required')">Date is required.</mat-error>
+          <mat-label>Date</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="date" required>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-error *ngIf="eventForm.get('date')?.hasError('required')">Date is required.</mat-error>
         </mat-form-field>
     
-        <button mat-raised-button color="primary" type="submit" [disabled]="eventForm.invalid">Update Event</button>
+        <mat-form-field appearance="fill">
+          <mat-label>Location</mat-label>
+          <input matInput formControlName="location">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Description</mat-label>
+          <textarea matInput formControlName="description" rows="5"></textarea>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" type="submit" [disabled]="eventForm.invalid || !eventForm.dirty">Update Event</button>
     </form>
 </div>

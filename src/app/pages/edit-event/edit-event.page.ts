@@ -1,4 +1,4 @@
-import { Component, effect, inject, signal } from '@angular/core';
+import { Component, effect, Inject, inject, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CycleEventStore } from '../../store/cycle-event-store';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -7,6 +7,8 @@ import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-edit-event',
@@ -16,12 +18,17 @@ import { MatInputModule } from '@angular/material/input';
     MatFormFieldModule,
     MatDatepickerModule,
     MatInputModule,
+    MatButtonModule
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './edit-event.page.html',
   styleUrl: './edit-event.page.scss'
 })
-export class EditEventPage {
+export class EditEventComponent {
+
+  public dialogRef = inject(MatDialogRef<EditEventComponent>);
+  public data = inject(MAT_DIALOG_DATA);
+
   store = inject(CycleEventStore);
   private activatedRoute = inject(ActivatedRoute);
   eventId = signal<number>(0);
@@ -34,11 +41,17 @@ export class EditEventPage {
   });
 
   constructor() {
+    console.log("EditEventComponent initialized with data:", this.data);
+    console.log(this.data.eventId);
+    this.eventId.set(this.data.eventId || 0);
     this.activatedRoute.params.subscribe(params => {
-      this.eventId.set(+params['id']);
+      if (params['id']) {
+        this.eventId.set(+params['id']);
+      }
     });
 
     effect(() => {
+      console.log('Event ID changed:', this.eventId());
       const event = this.store.getCycleEvent(this.eventId());
       if (event) {
         this.eventForm.setValue({
@@ -60,7 +73,8 @@ export class EditEventPage {
       location: this.eventForm.value.location || ''
     };
 
-    this.store.addCycleEvent(updatedEvent);
+    this.store.updateCycleEvent(updatedEvent);
+    this.dialogRef.close(updatedEvent);
     console.log('Event updated:', updatedEvent);
   }
 }

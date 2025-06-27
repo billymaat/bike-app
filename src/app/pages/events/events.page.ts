@@ -7,6 +7,8 @@ import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { EditEventComponent } from '../edit-event/edit-event.page';
 
 @Component({
   selector: 'app-events',
@@ -15,7 +17,8 @@ import { MatCardModule } from '@angular/material/card';
     MatButtonModule,
     MatListModule,
     MatIconModule,
-    MatCardModule
+    MatCardModule,
+    MatDialogModule,
   ],
   templateUrl: './events.page.html',
   styleUrl: './events.page.scss'
@@ -25,13 +28,21 @@ export class EventsPage {
 
   store = inject(CycleEventStore);
   router = inject(Router);
+  readonly dialog = inject(MatDialog);
+
   constructor() {
     this.events = this.store.entities;
   }
 
   selectEvent(event: CycleEvent) {
-    this.router.navigate(['/edit-event', event.id]);
+    // this.router.navigate(['/edit-event', event.id]);
     console.log('Selected event:', event);
+    this.dialog.open(EditEventComponent, {
+      width: '400px',
+      data: {
+        eventId: event.id
+      }
+    })
   }
 
   deleteEvent(evt: any, event: CycleEvent) {
