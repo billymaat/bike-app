@@ -26,7 +26,7 @@ export const EventsStore = signalStore(
             // Initialize any necessary state here
         }
     }),
-    withMethods((state) => ({
+    withMethods((state, cycleEventStore = inject(CycleEventStore)) => ({
         setFilter: (filter: CycleEventQuery) => {
             patchState(state, {
                 filter: filter
@@ -42,7 +42,7 @@ export const EventsStore = signalStore(
                 isLoading: loading
             });
         },
-        removeCycleEvent: (eventId: number, cycleEventStore = inject(CycleEventStore)) => {
+        removeCycleEvent: (eventId: number) => {
             cycleEventStore.removeCycleEvent(eventId);
         }
     })),
