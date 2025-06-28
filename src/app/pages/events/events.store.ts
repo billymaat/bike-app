@@ -21,11 +21,6 @@ export const EventsStore = signalStore(
         isLoading: false,
         filter: {}
     }),
-    withHooks({
-        onInit: (state) => {
-            // Initialize any necessary state here
-        }
-    }),
     withMethods((state, cycleEventStore = inject(CycleEventStore)) => ({
         setFilter: (filter: CycleEventQuery) => {
             patchState(state, {

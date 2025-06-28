@@ -56,7 +56,6 @@ export class EventsPage {
   }
 
   selectEvent(event: CycleEvent) {
-    console.log('Selected event:', event);
     this.dialog.open(EditEventComponent, {
       width: '400px',
       data: {
