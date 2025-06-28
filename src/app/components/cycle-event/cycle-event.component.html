@@ -1,0 +1,17 @@
+@let event = cycleEvent();
+<mat-card style="padding: 10px;">
+    <mat-card-title>
+        <span>{{ event.name }}</span>
+        <button mat-icon-button color="primary" (click)="onEditClicked()" aria-label="More details">
+        <mat-icon>more_vert</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="onDeleteClicked()" aria-label="Delete event">
+        <mat-icon>delete</mat-icon>
+        </button>
+    </mat-card-title>
+    <mat-card-content>
+        <p>{{ event.date | date }}</p>
+        <p>{{ event.location }}</p>
+        <p class="desc truncate-description">{{ event.description }}</p>
+    </mat-card-content>
+</mat-card>

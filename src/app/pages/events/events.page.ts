@@ -15,6 +15,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { CycleEventQuery, EventsStore } from './events.store';
+import { CycleEventComponent } from "../../components/cycle-event/cycle-event.component";
 
 @Component({
   selector: 'app-events',
@@ -29,8 +30,9 @@ import { CycleEventQuery, EventsStore } from './events.store';
     MatInputModule,
     ReactiveFormsModule,
     FormsModule,
-    MatDatepickerModule
-  ],
+    MatDatepickerModule,
+    CycleEventComponent
+],
   providers: [provideNativeDateAdapter(), EventsStore],
   templateUrl: './events.page.html',
   styleUrl: './events.page.scss'
@@ -65,7 +67,6 @@ export class EventsPage {
   }
 
   deleteEvent(evt: any, event: CycleEvent) {
-    evt.stopPropagation(); // Prevent the click from propagating to the list item
     this.store.removeCycleEvent(event.id);
   }
 
