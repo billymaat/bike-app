@@ -40,3 +40,10 @@ mat-list-item {
 .desc {
   white-space: pre-line;
 }
+
+form.form-group mat-form-field {
+  // Add your styles here
+  margin-bottom: 1rem;
+  align-items: center;
+  background-color: blue($color: #000000);
+}
