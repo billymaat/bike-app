@@ -10,7 +10,6 @@ import { AddEventService } from '../../services/add-event.service';
 import { CycleEvent } from '../../models/cycle-event';
 import { CycleEventStore } from '../../store/cycle-event-store';
 import { MatListModule } from '@angular/material/list';
-import { MatIcon } from '@angular/material/icon';
 import { Router } from '@angular/router';
 
 @Component({
@@ -24,7 +23,7 @@ import { Router } from '@angular/router';
     MatButtonModule,
     MatDatepickerModule,
     MatListModule,
-    MatIcon
+    MatInputModule
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './add-event.page.html',
