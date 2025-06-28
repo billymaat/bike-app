@@ -1,5 +1,5 @@
 .sidenav-container {
-  height: 100%;
+    height: calc(100vh - var(--mat-toolbar-standard-height, 64px));
 }
 
 .sidenav {
@@ -18,4 +18,8 @@
 
 mat-sidenav, mat-sidenav-content {
   transition: all 500ms ease-in-out !important;
+}
+
+mat-sidenav-content {
+  padding: 24px;
 }
