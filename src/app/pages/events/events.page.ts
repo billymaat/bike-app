@@ -1,4 +1,4 @@
-import { Component, effect, inject, signal, Signal } from '@angular/core';
+import { Component, computed, effect, inject, signal, Signal } from '@angular/core';
 import { CycleEvent } from '../../models/cycle-event';
 import { CycleEventStore } from '../../store/cycle-event-store';
 import { Router } from '@angular/router';
@@ -14,6 +14,7 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angul
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
+import { CycleEventQuery, EventsStore } from './events.store';
 
 @Component({
   selector: 'app-events',
@@ -30,14 +31,15 @@ import { MatInputModule } from '@angular/material/input';
     FormsModule,
     MatDatepickerModule
   ],
-  providers: [provideNativeDateAdapter()],
+  providers: [provideNativeDateAdapter(), EventsStore],
   templateUrl: './events.page.html',
   styleUrl: './events.page.scss'
 })
 export class EventsPage {
-  events = signal<CycleEvent[]>([]);
+  events: Signal<CycleEvent[]>
 
-  store = inject(CycleEventStore);
+
+  store = inject(EventsStore);
   router = inject(Router);
   readonly dialog = inject(MatDialog);
 
@@ -47,37 +49,13 @@ export class EventsPage {
     name: new FormControl(''),
   });
 
-
-  filteredEvents() {
-    let filtered = this.events();
-    if (this.filterForm.value.name) {
-      const term = this.filterForm.value.name.toLowerCase();
-      filtered = filtered.filter(event =>
-        event.name.toLowerCase().includes(term) ||
-        event.location.toLowerCase().includes(term)
-      );
-    }
-    if (this.filterForm.value.startDate) {
-      filtered = filtered.filter(event =>
-        new Date(event.date) >= new Date(this.filterForm.value.startDate!)
-      );
-    }
-    if (this.filterForm.value.endDate) {
-      filtered = filtered.filter(event =>
-        new Date(event.date) <= new Date(this.filterForm.value.endDate!)
-      );
-    }
-    return filtered;
-  }
-
   constructor() {
-    effect(() => {
-      this.events.set(this.store.entities());
-    })
+    this.events = computed(() => {
+      return this.store.filteredEvents();
+    });
   }
 
   selectEvent(event: CycleEvent) {
-    // this.router.navigate(['/edit-event', event.id]);
     console.log('Selected event:', event);
     this.dialog.open(EditEventComponent, {
       width: '400px',
@@ -93,7 +71,11 @@ export class EventsPage {
   }
 
   applyFilters() {
-    const filtered = this.filteredEvents();
-    this.events.set(filtered);
+    const query: CycleEventQuery = {
+      startDate: this.filterForm.value.startDate ? new Date(this.filterForm.value.startDate) : undefined,
+      endDate: this.filterForm.value.endDate ? new Date(this.filterForm.value.endDate) : undefined,
+      name: this.filterForm.value.name || '',
+    }
+    this.store.setFilter(query);
   }
 }
