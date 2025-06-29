@@ -1,5 +1,6 @@
 .sidenav-container {
-    height: calc(100vh - var(--mat-toolbar-standard-height, 64px));
+  height: 100vh;
+    // height: calc(100vh - var(--mat-toolbar-standard-height, 64px));
 }
 
 .sidenav {
