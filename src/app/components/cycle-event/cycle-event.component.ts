@@ -23,12 +23,17 @@ export class CycleEventComponent {
 
   editClicked = output<void>();
   deleteClicked = output<void>();
-  
+  viewClicked = output<void>();
+
   onEditClicked() {
     this.editClicked.emit();
   }
 
   onDeleteClicked() {
     this.deleteClicked.emit();
+  }
+
+  onViewClicked() {
+    this.viewClicked.emit();
   }
 }

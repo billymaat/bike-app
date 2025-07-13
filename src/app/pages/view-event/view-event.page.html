@@ -1,0 +1,12 @@
+<div class="page-container">
+  <h1 class="mat-h1">Event</h1>
+  <ng-container *ngIf="store.event() as event; else loading">
+    <h2> {{ event.name }}</h2>
+    <p><strong>Date:</strong> {{ event.date | date }}</p>
+    <p><strong>Location:</strong> {{ event.location }}</p>
+    <p><strong>Description:</strong> {{ event.description }}</p>
+  </ng-container>
+  <ng-template #loading>
+    <p>Loading event details...</p>
+  </ng-template>
+</div>

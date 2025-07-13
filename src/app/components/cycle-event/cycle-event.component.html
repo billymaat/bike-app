@@ -14,4 +14,9 @@
         <p>{{ event.location }}</p>
         <p class="desc truncate-description">{{ event.description }}</p>
     </mat-card-content>
+    <mat-card-actions>
+        <button mat-raised-button color="accent" (click)="onViewClicked()" aria-label="View event">
+            View Event
+        </button>
+    </mat-card-actions>
 </mat-card>

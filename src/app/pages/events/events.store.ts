@@ -1,5 +1,4 @@
 import { patchState, signalStore, withComputed, withHooks, withMethods, withState } from "@ngrx/signals";
-import { CycleEvent } from "../../models/cycle-event";
 import { CycleEventStore } from "../../store/cycle-event-store";
 import { computed, inject } from "@angular/core";
 

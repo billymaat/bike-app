@@ -6,6 +6,7 @@ import { SettingsPage } from './pages/settings/settings.page';
 import { AddEventPage } from './pages/add-event/add-event.page';
 import { EditEventComponent } from './pages/edit-event/edit-event.page';
 import { EventsPage } from './pages/events/events.page';
+import { ViewEventPage } from './pages/view-event/view-event.page';
 
 export const routes: Routes = [
   {
@@ -35,5 +36,9 @@ export const routes: Routes = [
   {
     path: 'events',
     component: EventsPage
+  },
+  {
+    path: 'view-event/:id',
+    component: ViewEventPage
   }
 ];

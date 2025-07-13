@@ -38,6 +38,7 @@ import { CycleEventComponent } from "../../components/cycle-event/cycle-event.co
   styleUrl: './events.page.scss'
 })
 export class EventsPage {
+
   events: Signal<CycleEvent[]>
 
 
@@ -68,6 +69,10 @@ export class EventsPage {
 
   deleteEvent(evt: any, event: CycleEvent) {
     this.store.removeCycleEvent(event.id);
+  }
+  
+  viewEvent(cycleEvent: CycleEvent) {
+    this.router.navigate(['/view-event', cycleEvent.id]);
   }
 
   applyFilters() {
