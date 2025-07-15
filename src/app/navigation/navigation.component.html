@@ -1,8 +1,9 @@
-<!-- <mat-toolbar color="primary" class="mat-elevation-z3">
+<div class="container">
+<mat-toolbar color="primary" class="mat-elevation-z3">
   <button mat-icon-button (click)="doSomething()">
     <mat-icon>menu</mat-icon>
   </button>
-</mat-toolbar> -->
+</mat-toolbar>
 <mat-sidenav-container class="sidenav-container" style="flex-shrink: 1; flex-grow: 1;" >
   <mat-sidenav #drawer opened mode="side" [style.width]="sideNavWidth()">
     <app-custom-sidenav [collapsed]="collapsed()"/>
@@ -13,3 +14,4 @@
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>
+</div>

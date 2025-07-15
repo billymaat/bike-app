@@ -1,22 +1,32 @@
 .sidenav-container {
   // height: 100vh;
     // height: calc(100vh - var(--mat-toolbar-standard-height, 64px));
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: #eee;
+  // position: absolute;
+  // top: 0;
+  // bottom: 0;
+  // left: 0;
+  // right: 0;
+  // background: #eee;
 }
 
 .sidenav-content {
   position: relative;
   padding: 0px !important;
+  display: flex;
+  flex-direction: column;
 }
 
 .scrollable-content {
+  display: flex;
+  flex-direction: column;
   // height: calc(100vh - 80px);
-  overflow: auto;
+  // overflow: auto;
+}
+
+.container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .sidenav {
