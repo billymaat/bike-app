@@ -11,6 +11,9 @@ import { map, shareReplay } from 'rxjs/operators';
 import { RouterOutlet } from '@angular/router';
 import { SideMenuItems } from './side-menu-items';
 import { CustomSidenavComponent } from "./components/custom-sidenav/custom-sidenav.component";
+import { EventsPage } from "../pages/events/events.page";
+import { DashboardPage } from "../pages/dashboard/dashboard.page";
+import { UsersPage } from "../pages/users/users.page";
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
@@ -23,7 +26,10 @@ import { CustomSidenavComponent } from "./components/custom-sidenav/custom-siden
     MatListModule,
     MatIconModule,
     AsyncPipe,
-    CustomSidenavComponent
+    CustomSidenavComponent,
+    EventsPage,
+    DashboardPage,
+    UsersPage
 ]
 })
 export class NavigationComponent {
