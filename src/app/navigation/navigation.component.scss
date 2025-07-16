@@ -9,6 +9,13 @@
   // background: #eee;
 }
 
+.mat-toolbar {
+  height: 64px !important;
+  min-height: 64px !important;
+  max-height: 64px !important;
+  box-sizing: border-box;
+}
+
 .sidenav-content {
   position: relative;
   padding: 0px !important;
