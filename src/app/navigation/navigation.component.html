@@ -1,17 +1,17 @@
 <div class="container">
-<mat-toolbar color="primary" class="mat-elevation-z3">
-  <button mat-icon-button (click)="doSomething()">
-    <mat-icon>menu</mat-icon>
-  </button>
-</mat-toolbar>
-<mat-sidenav-container class="sidenav-container" style="flex-shrink: 1; flex-grow: 1;" >
-  <mat-sidenav #drawer opened mode="side" [style.width]="sideNavWidth()">
-    <app-custom-sidenav [collapsed]="collapsed()"/>
-  </mat-sidenav>
-  <mat-sidenav-content class="sidenav-content"  [style.margin-left]="sideNavWidth()">
-    <div class="scrollable-content" style="flex-shrink: 1; flex-grow: 1;">
-      <router-outlet/>
-    </div>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+  <mat-toolbar color="primary" class="mat-elevation-z3" style="height: 64px !important">
+    <button mat-icon-button (click)="doSomething()">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </mat-toolbar>
+  <mat-sidenav-container class="sidenav-container" style="flex-shrink: 1; flex-grow: 1;" >
+    <mat-sidenav #drawer opened mode="side" [style.width]="sideNavWidth()">
+      <app-custom-sidenav [collapsed]="collapsed()"/>
+    </mat-sidenav>
+    <mat-sidenav-content class="sidenav-content"  [style.margin-left]="sideNavWidth()">
+      <div class="scrollable-content" >
+        <router-outlet/>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
 </div>
