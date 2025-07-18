@@ -1,5 +1,5 @@
 import { patchState, signalStore, withHooks, withMethods, withState } from '@ngrx/signals';
-import { CycleEvent } from '../models/cycle-event';
+import { CycleEvent, CycleEventAddRequest } from '../models/cycle-event';
 import {
   addEntity,
   removeEntity,
@@ -9,6 +9,8 @@ import {
   withEntities,
 } from '@ngrx/signals/entities';
 import { SeedData } from './seed-data';
+import { CycleEventsService } from '../services/cycle-events.service';
+import { inject } from '@angular/core';
 
 type CycleEventState = {
   cycleEvents: CycleEvent[];
@@ -27,7 +29,7 @@ export const CycleEventStore = signalStore(
   withEntities<CycleEvent>(),
   withState(initialState),
   withHooks({
-    onInit(store) {      
+    onInit(store, cycleEventService = inject(CycleEventsService)) {      
       //patchState(store, setAllEntities(SeedData));
       //Initialize the store with any necessary data or state
       patchState(store, {
@@ -40,26 +42,31 @@ export const CycleEventStore = signalStore(
         patchState(store, {
           isLoading: false,
         });
-        patchState(store, setAllEntities(SeedData));
+        patchState(store, setAllEntities(cycleEventService.cycleEvents));
       }, 1000);
       
     }
   }),
-  withMethods((store) => ({
+  withMethods((store, cycleEventService = inject(CycleEventsService)) => ({
     seedData(events: CycleEvent[]) {
       patchState(store, setAllEntities(events));
     },
-    addCycleEvent: (event: CycleEvent) => {
-      patchState(store, addEntity(event));
+    addCycleEvent: (event: CycleEventAddRequest) => {
+      const evt = cycleEventService.addCycleEvent(event);
+      patchState(store, addEntity(evt));
     },
     updateCycleEvent: (event: CycleEvent) => {
-      patchState(store, updateEntity( { id: event.id, changes: event }));
+      cycleEventService.updateCycleEvent(event);
+      patchState(store, updateEntity({ id: event.id, changes: event }));
     },
     removeCycleEvent: (eventId: number) => {
+      cycleEventService.removeCycleEvent(eventId);
       patchState(store, removeEntity(eventId));
     },
     getCycleEvent: (eventId: number) => {
-      return store.entities().find(event => event.id === eventId) || null;
+      const event = cycleEventService.getCycleEvent(eventId);
+      return event;
+      // return store.entities().find(event => event.id === eventId) || null;
     }
   }))
 );

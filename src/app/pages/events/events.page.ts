@@ -54,7 +54,7 @@ export class EventsPage {
 
   constructor() {
     this.events = computed(() => {
-      return this.store.filteredEvents();
+      return this.store.filteredEvents().sort((a, b) => a.date.getTime() - b.date.getTime());
     });
   }
 

@@ -50,7 +50,6 @@ export class AddEventPage {
   onSubmit() {
     // Here you would typically send the form data to your backend or service
     this.store.addCycleEvent({
-      id: this.idCounter++,
       name: this.eventForm.value.name || '',
       description: this.eventForm.value.description || '',
       date: this.eventForm.value.date ? new Date(this.eventForm.value.date) : new Date(),

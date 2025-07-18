@@ -26,6 +26,8 @@
 .scrollable-content {
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
+  overflow: auto;
   // height: calc(100vh - 80px);
   // overflow: auto;
 }

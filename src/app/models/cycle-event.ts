@@ -5,3 +5,10 @@ export interface CycleEvent {
   date: Date;
   location: string;
 }
+
+export interface CycleEventAddRequest {
+  name: string;
+  description: string;
+  date: Date;
+  location: string;
+}
