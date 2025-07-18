@@ -63,6 +63,18 @@ export const EventsStore = signalStore(
                 );
             }
             return filtered;
-        })
+        }),
+        upcomingEvents: computed(() => {
+            // get the upcoming events that are in the future
+            // and order them by the soonest first
+            return cycleEventStore.entities().filter(event => new Date(event.date) >= new Date())
+                .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+        }),
+        pastEvents: computed(() => {
+            // get the past events that are in the past
+            // and order them by the most recent first
+            return cycleEventStore.entities().filter(event => new Date(event.date) < new Date())
+                .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+        }),
     }))
 )

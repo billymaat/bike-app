@@ -12,10 +12,11 @@ import { EditEventComponent } from '../edit-event/edit-event.page';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { provideNativeDateAdapter } from '@angular/material/core';
+import { MatOptionModule, provideNativeDateAdapter } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { CycleEventQuery, EventsStore } from './events.store';
 import { CycleEventComponent } from "../../components/cycle-event/cycle-event.component";
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-events',
@@ -31,7 +32,9 @@ import { CycleEventComponent } from "../../components/cycle-event/cycle-event.co
     ReactiveFormsModule,
     FormsModule,
     MatDatepickerModule,
-    CycleEventComponent
+    CycleEventComponent,
+    MatOptionModule,
+    MatSelectModule
 ],
   providers: [provideNativeDateAdapter(), EventsStore],
   templateUrl: './events.page.html',
@@ -41,7 +44,6 @@ export class EventsPage {
 
   events: Signal<CycleEvent[]>
 
-
   store = inject(EventsStore);
   router = inject(Router);
   readonly dialog = inject(MatDialog);
@@ -50,6 +52,7 @@ export class EventsPage {
     startDate: new FormControl(''),
     endDate: new FormControl(''),
     name: new FormControl(''),
+    eventType: new FormControl('upcoming')
   });
 
   constructor() {

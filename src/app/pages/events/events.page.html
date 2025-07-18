@@ -20,12 +20,21 @@
       <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
       <mat-datepicker #endPicker></mat-datepicker>
     </mat-form-field>
+    <!-- Add dropdown for event type -->
+    <mat-form-field appearance="outline">
+      <mat-label>Show</mat-label>
+      <mat-select formControlName="eventType">
+        <mat-option value="upcoming">Upcoming Events</mat-option>
+        <mat-option value="past">Past Events</mat-option>
+      </mat-select>
+    </mat-form-field>
     <button mat-raised-button color="primary" type="submit">Apply Filters</button>
   </form>
+
   <div class="event-list">
-    <h2>Upcoming Events</h2>
+    <h2>{{ filterForm.value.eventType === 'upcoming' ? 'Upcoming Events' : 'Past Events' }}</h2>
     <div class="event-list-container">
-      @for (event of events(); track event.id) {
+      @for (event of filterForm.value.eventType === 'upcoming' ? store.upcomingEvents() : store.pastEvents(); track event.id) {
         <div style="margin-bottom: 16px;">
           <cycle-event [cycleEvent]="event" 
           (editClicked)="selectEvent(event)" 
