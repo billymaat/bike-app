@@ -2,37 +2,41 @@
   <h1 class="mat-h1">Events</h1>
   <form 
     class="filter-form"
-    style="display: flex; justify-content: center; align-items: center; gap: 16px;"
+    style="display: flex; flex-direction: column; justify-content: center; align-items: start; gap: 16px;"
   [formGroup]="filterForm" (ngSubmit)="applyFilters()">
-    <mat-form-field appearance="outline" style="flex: 1;">
-      <mat-label>Filter events</mat-label>
-      <input matInput formControlName="name" placeholder="Search by name or location" />
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-label>Start Date</mat-label>
-      <input matInput [matDatepicker]="startPicker" formControlName="startDate" />
-      <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
-      <mat-datepicker #startPicker></mat-datepicker>
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-label>End Date</mat-label>
-      <input matInput [matDatepicker]="endPicker" formControlName="endDate" />
-      <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
-      <mat-datepicker #endPicker></mat-datepicker>
-    </mat-form-field>
-    <!-- Add dropdown for event type -->
-    <mat-form-field appearance="outline">
-      <mat-label>Show</mat-label>
-      <mat-select formControlName="eventType">
-        <mat-option value="upcoming">Upcoming Events</mat-option>
-        <mat-option value="past">Past Events</mat-option>
-      </mat-select>
-    </mat-form-field>
+    <div style="display: flex; flex-direction: row;">
+      <mat-form-field appearance="outline" style="flex: 1;">
+        <mat-label>Filter events</mat-label>
+        <input matInput formControlName="name" placeholder="Search by name or location" />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Start Date</mat-label>
+        <input matInput [matDatepicker]="startPicker" formControlName="startDate" />
+        <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+        <mat-datepicker #startPicker></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>End Date</mat-label>
+        <input matInput [matDatepicker]="endPicker" formControlName="endDate" />
+        <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+        <mat-datepicker #endPicker></mat-datepicker>
+      </mat-form-field>
+    </div>
     <button mat-raised-button color="primary" type="submit">Apply Filters</button>
   </form>
 
   <div class="event-list">
     <h2>{{ filterForm.value.eventType === 'upcoming' ? 'Upcoming Events' : 'Past Events' }}</h2>
+        <!-- Add dropdown for event type -->
+    <form [formGroup]="filterForm">
+      <mat-form-field appearance="outline">
+        <mat-label>Show</mat-label>
+        <mat-select formControlName="eventType">
+          <mat-option value="upcoming">Upcoming Events</mat-option>
+          <mat-option value="past">Past Events</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </form>
     <div class="event-list-container">
       @for (event of filterForm.value.eventType === 'upcoming' ? store.upcomingEvents() : store.pastEvents(); track event.id) {
         <div style="margin-bottom: 16px;">
