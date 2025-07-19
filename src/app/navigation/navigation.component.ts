@@ -1,6 +1,6 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, CommonModule } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -11,25 +11,22 @@ import { map, shareReplay } from 'rxjs/operators';
 import { RouterOutlet } from '@angular/router';
 import { SideMenuItems } from './side-menu-items';
 import { CustomSidenavComponent } from "./components/custom-sidenav/custom-sidenav.component";
-import { EventsPage } from "../pages/events/events.page";
-import { DashboardPage } from "../pages/dashboard/dashboard.page";
-import { UsersPage } from "../pages/users/users.page";
+import { MatMenuModule } from '@angular/material/menu';
+import { CurrentUserStore } from '../store/current-user-store';
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
   styleUrl: './navigation.component.scss',
   imports: [
+    CommonModule,
     RouterOutlet,
     MatToolbarModule,
     MatButtonModule,
     MatSidenavModule,
     MatListModule,
     MatIconModule,
-    AsyncPipe,
+    MatMenuModule,
     CustomSidenavComponent,
-    EventsPage,
-    DashboardPage,
-    UsersPage
 ]
 })
 export class NavigationComponent {
@@ -47,8 +44,26 @@ export class NavigationComponent {
 
   sideNavWidth = computed(() => this.collapsed() ? '65px' : '250px');
 
+  currentUserStore = inject(CurrentUserStore);
+  user = this.currentUserStore.user;
+
+  isLoggedIn() {
+    return this.user() !== null;
+  }
+
   doSomething() {
     console.log('Button clicked!');
     this.collapsed.set(!this.collapsed())
+  }
+
+  logout() {
+    // TODO: Add actual logout logic here
+    console.log('Logging out...');
+    this.currentUserStore.clearUser();
+  }
+
+  login() {
+    this.currentUserStore.login();
+    console.log('Logging in...');
   }
 }

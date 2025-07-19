@@ -14,6 +14,16 @@
         <mat-cell *matCellDef="let user"> {{user.lastName}} </mat-cell>
         </ng-container>
 
+        <!-- Role Column -->
+        <ng-container matColumnDef="role">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Role </mat-header-cell>
+        <mat-cell *matCellDef="let user">
+            <mat-icon *ngIf="user.role === 'admin'" aria-label="Admin">admin_panel_settings</mat-icon>
+            <mat-icon *ngIf="user.role === 'organizer'" aria-label="Organizer">event</mat-icon>
+            <mat-icon *ngIf="user.role === 'member'" aria-label="Member">person</mat-icon>
+        </mat-cell>
+        </ng-container>
+
         <!-- Actions Column -->
         <ng-container matColumnDef="actions">
         <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
@@ -22,7 +32,7 @@
         </mat-cell>
         </ng-container>
 
-        <mat-header-row *matHeaderRowDef="['firstName', 'lastName', 'actions']"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: ['firstName', 'lastName', 'actions'];"></mat-row>
+        <mat-header-row *matHeaderRowDef="['firstName', 'lastName', 'role', 'actions']"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: ['firstName', 'lastName', 'role', 'actions'];"></mat-row>
     </mat-table>
 </div>

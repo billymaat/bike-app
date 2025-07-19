@@ -1,3 +1,9 @@
+export enum UserRole {
+  admin = 'admin',
+  organizer = 'organizer',
+  member = 'member'
+}
+
 export type User = {
   id: number;
   email: string;
@@ -12,4 +18,5 @@ export type User = {
     relationship: string;
     phone: string;
   } | null;
+  role: UserRole;
 }

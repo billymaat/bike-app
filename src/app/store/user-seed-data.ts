@@ -1,6 +1,7 @@
-import { User } from '../models/user';
+import { User, UserRole } from '../models/user';
 
 export const userSeedData: User[] = [
+  // First 10 users: admin
   {
     id: 1,
     email: 'oliver.smith1@email.co.uk',
@@ -14,7 +15,8 @@ export const userSeedData: User[] = [
       lastName: 'Smith',
       relationship: 'Sister',
       phone: '+44 7700 900051'
-    }
+    },
+    role: UserRole.admin
   },
   {
     id: 2,
@@ -29,7 +31,8 @@ export const userSeedData: User[] = [
       lastName: 'Jones',
       relationship: 'Brother',
       phone: '+44 7700 900052'
-    }
+    },
+    role: UserRole.admin
   },
   {
     id: 3,
@@ -44,7 +47,8 @@ export const userSeedData: User[] = [
       lastName: 'Brown',
       relationship: 'Mother',
       phone: '+44 7700 900053'
-    }
+    },
+    role: UserRole.admin
   },
   {
     id: 4,
@@ -59,7 +63,8 @@ export const userSeedData: User[] = [
       lastName: 'Taylor',
       relationship: 'Father',
       phone: '+44 7700 900054'
-    }
+    },
+    role: UserRole.admin
   },
   {
     id: 5,
@@ -74,7 +79,8 @@ export const userSeedData: User[] = [
       lastName: 'Wilson',
       relationship: 'Wife',
       phone: '+44 7700 900055'
-    }
+    },
+    role: UserRole.admin
   },
   {
     id: 6,
@@ -89,7 +95,8 @@ export const userSeedData: User[] = [
       lastName: 'Evans',
       relationship: 'Brother',
       phone: '+44 7700 900056'
-    }
+    },
+    role: UserRole.admin
   },
   {
     id: 7,
@@ -104,7 +111,8 @@ export const userSeedData: User[] = [
       lastName: 'Thomas',
       relationship: 'Sister',
       phone: '+44 7700 900057'
-    }
+    },
+    role: UserRole.admin
   },
   {
     id: 8,
@@ -119,7 +127,8 @@ export const userSeedData: User[] = [
       lastName: 'Moore',
       relationship: 'Brother',
       phone: '+44 7700 900058'
-    }
+    },
+    role: UserRole.admin
   },
   {
     id: 9,
@@ -134,7 +143,8 @@ export const userSeedData: User[] = [
       lastName: 'Martin',
       relationship: 'Sister',
       phone: '+44 7700 900059'
-    }
+    },
+    role: UserRole.admin
   },
   {
     id: 10,
@@ -149,8 +159,10 @@ export const userSeedData: User[] = [
       lastName: 'Clark',
       relationship: 'Brother',
       phone: '+44 7700 900060'
-    }
+    },
+    role: UserRole.admin
   },
+  // Next 20 users: organizer
   {
     id: 11,
     email: 'leo.walker11@email.co.uk',
@@ -164,7 +176,8 @@ export const userSeedData: User[] = [
       lastName: 'Walker',
       relationship: 'Sister',
       phone: '+44 7700 900061'
-    }
+    },
+    role: UserRole.organizer
   },
   {
     id: 12,
@@ -179,7 +192,8 @@ export const userSeedData: User[] = [
       lastName: 'Hall',
       relationship: 'Brother',
       phone: '+44 7700 900062'
-    }
+    },
+    role: UserRole.organizer
   },
   {
     id: 13,
@@ -194,7 +208,8 @@ export const userSeedData: User[] = [
       lastName: 'Allen',
       relationship: 'Sister',
       phone: '+44 7700 900063'
-    }
+    },
+    role: UserRole.organizer
   },
   {
     id: 14,
@@ -209,7 +224,8 @@ export const userSeedData: User[] = [
       lastName: 'Young',
       relationship: 'Brother',
       phone: '+44 7700 900064'
-    }
+    },
+    role: UserRole.organizer
   },
   {
     id: 15,
@@ -224,7 +240,8 @@ export const userSeedData: User[] = [
       lastName: 'King',
       relationship: 'Sister',
       phone: '+44 7700 900065'
-    }
+    },
+    role: UserRole.organizer
   },
   {
     id: 16,
@@ -239,7 +256,8 @@ export const userSeedData: User[] = [
       lastName: 'Wright',
       relationship: 'Brother',
       phone: '+44 7700 900066'
-    }
+    },
+    role: UserRole.organizer
   },
   {
     id: 17,
@@ -254,7 +272,8 @@ export const userSeedData: User[] = [
       lastName: 'Scott',
       relationship: 'Sister',
       phone: '+44 7700 900067'
-    }
+    },
+    role: UserRole.organizer
   },
   {
     id: 18,
@@ -269,7 +288,8 @@ export const userSeedData: User[] = [
       lastName: 'Green',
       relationship: 'Brother',
       phone: '+44 7700 900068'
-    }
+    },
+    role: UserRole.organizer
   },
   {
     id: 19,
@@ -284,7 +304,8 @@ export const userSeedData: User[] = [
       lastName: 'Baker',
       relationship: 'Sister',
       phone: '+44 7700 900069'
-    }
+    },
+    role: UserRole.organizer
   },
   {
     id: 20,
@@ -299,7 +320,8 @@ export const userSeedData: User[] = [
       lastName: 'Adams',
       relationship: 'Brother',
       phone: '+44 7700 900070'
-    }
+    },
+    role: UserRole.organizer
   },
   {
     id: 21,
@@ -314,7 +336,8 @@ export const userSeedData: User[] = [
       lastName: 'Nelson',
       relationship: 'Sister',
       phone: '+44 7700 900071'
-    }
+    },
+    role: UserRole.organizer
   },
   {
     id: 22,
@@ -329,7 +352,8 @@ export const userSeedData: User[] = [
       lastName: 'Carter',
       relationship: 'Brother',
       phone: '+44 7700 900072'
-    }
+    },
+    role: UserRole.organizer
   },
   {
     id: 23,
@@ -344,7 +368,8 @@ export const userSeedData: User[] = [
       lastName: 'Mitchell',
       relationship: 'Sister',
       phone: '+44 7700 900073'
-    }
+    },
+    role: UserRole.organizer
   },
   {
     id: 24,
@@ -359,7 +384,8 @@ export const userSeedData: User[] = [
       lastName: 'Roberts',
       relationship: 'Brother',
       phone: '+44 7700 900074'
-    }
+    },
+    role: UserRole.organizer
   },
   {
     id: 25,
@@ -374,7 +400,8 @@ export const userSeedData: User[] = [
       lastName: 'Turner',
       relationship: 'Sister',
       phone: '+44 7700 900075'
-    }
+    },
+    role: UserRole.organizer
   },
   {
     id: 26,
@@ -389,7 +416,8 @@ export const userSeedData: User[] = [
       lastName: 'Phillips',
       relationship: 'Brother',
       phone: '+44 7700 900076'
-    }
+    },
+    role: UserRole.organizer
   },
   {
     id: 27,
@@ -404,7 +432,8 @@ export const userSeedData: User[] = [
       lastName: 'Campbell',
       relationship: 'Sister',
       phone: '+44 7700 900077'
-    }
+    },
+    role: UserRole.organizer
   },
   {
     id: 28,
@@ -419,7 +448,8 @@ export const userSeedData: User[] = [
       lastName: 'Parker',
       relationship: 'Brother',
       phone: '+44 7700 900078'
-    }
+    },
+    role: UserRole.organizer
   },
   {
     id: 29,
@@ -434,7 +464,8 @@ export const userSeedData: User[] = [
       lastName: 'Edwards',
       relationship: 'Sister',
       phone: '+44 7700 900079'
-    }
+    },
+    role: UserRole.organizer
   },
   {
     id: 30,
@@ -449,7 +480,8 @@ export const userSeedData: User[] = [
       lastName: 'Collins',
       relationship: 'Brother',
       phone: '+44 7700 900080'
-    }
+    },
+    role: UserRole.organizer
   },
   {
     id: 31,
@@ -464,7 +496,8 @@ export const userSeedData: User[] = [
       lastName: 'Stewart',
       relationship: 'Sister',
       phone: '+44 7700 900081'
-    }
+    },
+    role: UserRole.organizer
   },
   {
     id: 32,
@@ -479,7 +512,8 @@ export const userSeedData: User[] = [
       lastName: 'Morris',
       relationship: 'Brother',
       phone: '+44 7700 900082'
-    }
+    },
+    role: UserRole.organizer
   },
   {
     id: 33,
@@ -494,7 +528,8 @@ export const userSeedData: User[] = [
       lastName: 'Ward',
       relationship: 'Sister',
       phone: '+44 7700 900083'
-    }
+    },
+    role: UserRole.organizer
   },
   {
     id: 34,
@@ -509,7 +544,8 @@ export const userSeedData: User[] = [
       lastName: 'Hughes',
       relationship: 'Brother',
       phone: '+44 7700 900084'
-    }
+    },
+    role: UserRole.organizer
   },
   {
     id: 35,
@@ -524,7 +560,8 @@ export const userSeedData: User[] = [
       lastName: 'Price',
       relationship: 'Sister',
       phone: '+44 7700 900085'
-    }
+    },
+    role: UserRole.organizer
   },
   {
     id: 36,
@@ -539,7 +576,8 @@ export const userSeedData: User[] = [
       lastName: 'Bennett',
       relationship: 'Brother',
       phone: '+44 7700 900086'
-    }
+    },
+    role: UserRole.organizer
   },
   {
     id: 37,
@@ -554,7 +592,8 @@ export const userSeedData: User[] = [
       lastName: 'Wood',
       relationship: 'Sister',
       phone: '+44 7700 900087'
-    }
+    },
+    role: UserRole.organizer
   },
   {
     id: 38,
@@ -569,7 +608,8 @@ export const userSeedData: User[] = [
       lastName: 'Barnes',
       relationship: 'Brother',
       phone: '+44 7700 900088'
-    }
+    },
+    role: UserRole.organizer
   },
   {
     id: 39,
@@ -584,7 +624,8 @@ export const userSeedData: User[] = [
       lastName: 'Ross',
       relationship: 'Sister',
       phone: '+44 7700 900089'
-    }
+    },
+    role: UserRole.organizer
   },
   {
     id: 40,
@@ -599,7 +640,8 @@ export const userSeedData: User[] = [
       lastName: 'Harrison',
       relationship: 'Brother',
       phone: '+44 7700 900090'
-    }
+    },
+    role: UserRole.organizer
   },
   {
     id: 41,
@@ -614,7 +656,8 @@ export const userSeedData: User[] = [
       lastName: 'Cooper',
       relationship: 'Sister',
       phone: '+44 7700 900091'
-    }
+    },
+    role: UserRole.organizer
   },
   {
     id: 42,
@@ -629,7 +672,8 @@ export const userSeedData: User[] = [
       lastName: 'Richards',
       relationship: 'Brother',
       phone: '+44 7700 900092'
-    }
+    },
+    role: UserRole.organizer
   },
   {
     id: 43,
@@ -644,7 +688,8 @@ export const userSeedData: User[] = [
       lastName: 'Cox',
       relationship: 'Sister',
       phone: '+44 7700 900093'
-    }
+    },
+    role: UserRole.organizer
   },
   {
     id: 44,
@@ -659,7 +704,8 @@ export const userSeedData: User[] = [
       lastName: 'Gray',
       relationship: 'Brother',
       phone: '+44 7700 900094'
-    }
+    },
+    role: UserRole.organizer
   },
   {
     id: 45,
@@ -674,7 +720,8 @@ export const userSeedData: User[] = [
       lastName: 'Murray',
       relationship: 'Sister',
       phone: '+44 7700 900095'
-    }
+    },
+    role: UserRole.organizer
   },
   {
     id: 46,
@@ -689,7 +736,8 @@ export const userSeedData: User[] = [
       lastName: 'Mason',
       relationship: 'Brother',
       phone: '+44 7700 900096'
-    }
+    },
+    role: UserRole.organizer
   },
   {
     id: 47,
@@ -704,7 +752,8 @@ export const userSeedData: User[] = [
       lastName: 'Hunt',
       relationship: 'Sister',
       phone: '+44 7700 900097'
-    }
+    },
+    role: UserRole.organizer
   },
   {
     id: 48,
@@ -719,7 +768,8 @@ export const userSeedData: User[] = [
       lastName: 'Matthews',
       relationship: 'Brother',
       phone: '+44 7700 900098'
-    }
+    },
+    role: UserRole.organizer
   },
   {
     id: 49,
@@ -734,7 +784,8 @@ export const userSeedData: User[] = [
       lastName: 'Knight',
       relationship: 'Sister',
       phone: '+44 7700 900099'
-    }
+    },
+    role: UserRole.organizer
   },
   {
     id: 50,
@@ -749,8 +800,10 @@ export const userSeedData: User[] = [
       lastName: 'Holmes',
       relationship: 'Brother',
       phone: '+44 7700 900100'
-    }
+    },
+    role: UserRole.organizer
   },
+  // Remaining users: member
   {
     id: 51,
     email: 'louis.mills51@email.co.uk',
@@ -764,7 +817,8 @@ export const userSeedData: User[] = [
       lastName: 'Mills',
       relationship: 'Sister',
       phone: '+44 7700 900101'
-    }
+    },
+    role: UserRole.member
   },
   {
     id: 52,
@@ -779,7 +833,8 @@ export const userSeedData: User[] = [
       lastName: 'Hamilton',
       relationship: 'Brother',
       phone: '+44 7700 900102'
-    }
+    },
+    role: UserRole.member
   },
   {
     id: 53,
@@ -794,7 +849,8 @@ export const userSeedData: User[] = [
       lastName: 'Graham',
       relationship: 'Sister',
       phone: '+44 7700 900103'
-    }
+    },
+    role: UserRole.member
   },
   {
     id: 54,
@@ -809,7 +865,8 @@ export const userSeedData: User[] = [
       lastName: 'Sullivan',
       relationship: 'Brother',
       phone: '+44 7700 900104'
-    }
+    },
+    role: UserRole.member
   },
   {
     id: 55,
@@ -824,7 +881,8 @@ export const userSeedData: User[] = [
       lastName: 'Wallace',
       relationship: 'Sister',
       phone: '+44 7700 900105'
-    }
+    },
+    role: UserRole.member
   },
   {
     id: 56,
@@ -839,7 +897,8 @@ export const userSeedData: User[] = [
       lastName: 'West',
       relationship: 'Brother',
       phone: '+44 7700 900106'
-    }
+    },
+    role: UserRole.member
   },
   {
     id: 57,
@@ -854,7 +913,8 @@ export const userSeedData: User[] = [
       lastName: 'Burns',
       relationship: 'Sister',
       phone: '+44 7700 900107'
-    }
+    },
+    role: UserRole.member
   },
   {
     id: 58,
@@ -869,7 +929,8 @@ export const userSeedData: User[] = [
       lastName: 'Spencer',
       relationship: 'Brother',
       phone: '+44 7700 900108'
-    }
+    },
+    role: UserRole.member
   },
   {
     id: 59,
@@ -884,7 +945,8 @@ export const userSeedData: User[] = [
       lastName: 'Hart',
       relationship: 'Sister',
       phone: '+44 7700 900109'
-    }
+    },
+    role: UserRole.member
   },
   {
     id: 60,
@@ -899,7 +961,8 @@ export const userSeedData: User[] = [
       lastName: 'Elliott',
       relationship: 'Brother',
       phone: '+44 7700 900110'
-    }
+    },
+    role: UserRole.member
   },
   {
     id: 61,
@@ -914,7 +977,8 @@ export const userSeedData: User[] = [
       lastName: 'Davies',
       relationship: 'Sister',
       phone: '+44 7700 900111'
-    }
+    },
+    role: UserRole.member
   },
   {
     id: 62,
@@ -929,7 +993,8 @@ export const userSeedData: User[] = [
       lastName: 'Elliott',
       relationship: 'Brother',
       phone: '+44 7700 900112'
-    }
+    },
+    role: UserRole.member
   },
   {
     id: 63,
@@ -944,7 +1009,8 @@ export const userSeedData: User[] = [
       lastName: 'Howard',
       relationship: 'Sister',
       phone: '+44 7700 900113'
-    }
+    },
+    role: UserRole.member
   },
   {
     id: 64,
@@ -959,7 +1025,8 @@ export const userSeedData: User[] = [
       lastName: 'Harrison',
       relationship: 'Brother',
       phone: '+44 7700 900114'
-    }
+    },
+    role: UserRole.member
   },
   {
     id: 65,
@@ -974,7 +1041,8 @@ export const userSeedData: User[] = [
       lastName: 'Morris',
       relationship: 'Sister',
       phone: '+44 7700 900115'
-    }
+    },
+    role: UserRole.member
   },
   {
     id: 66,
@@ -989,7 +1057,8 @@ export const userSeedData: User[] = [
       lastName: 'Morgan',
       relationship: 'Brother',
       phone: '+44 7700 900116'
-    }
+    },
+    role: UserRole.member
   },
   {
     id: 67,
@@ -1004,7 +1073,8 @@ export const userSeedData: User[] = [
       lastName: 'Bell',
       relationship: 'Sister',
       phone: '+44 7700 900117'
-    }
+    },
+    role: UserRole.member
   },
   {
     id: 68,
@@ -1019,7 +1089,8 @@ export const userSeedData: User[] = [
       lastName: 'Ward',
       relationship: 'Brother',
       phone: '+44 7700 900118'
-    }
+    },
+    role: UserRole.member
   },
   {
     id: 69,
@@ -1034,7 +1105,8 @@ export const userSeedData: User[] = [
       lastName: 'Brooks',
       relationship: 'Sister',
       phone: '+44 7700 900119'
-    }
+    },
+    role: UserRole.member
   },
   {
     id: 70,
@@ -1049,7 +1121,8 @@ export const userSeedData: User[] = [
       lastName: 'Bennett',
       relationship: 'Brother',
       phone: '+44 7700 900120'
-    }
+    },
+    role: UserRole.member
   },
   {
     id: 71,
@@ -1064,7 +1137,8 @@ export const userSeedData: User[] = [
       lastName: 'Hamilton',
       relationship: 'Sister',
       phone: '+44 7700 900121'
-    }
+    },
+    role: UserRole.member
   },
   {
     id: 72,
@@ -1079,7 +1153,8 @@ export const userSeedData: User[] = [
       lastName: 'Harrison',
       relationship: 'Brother',
       phone: '+44 7700 900122'
-    }
+    },
+    role: UserRole.member
   },
   {
     id: 73,
@@ -1094,7 +1169,8 @@ export const userSeedData: User[] = [
       lastName: 'Matthews',
       relationship: 'Sister',
       phone: '+44 7700 900123'
-    }
+    },
+    role: UserRole.member
   },
   {
     id: 74,
@@ -1109,7 +1185,8 @@ export const userSeedData: User[] = [
       lastName: 'Murray',
       relationship: 'Brother',
       phone: '+44 7700 900124'
-    }
+    },
+    role: UserRole.member
   },
   {
     id: 75,
@@ -1124,7 +1201,8 @@ export const userSeedData: User[] = [
       lastName: 'Mason',
       relationship: 'Sister',
       phone: '+44 7700 900125'
-    }
+    },
+    role: UserRole.member
   },
   {
     id: 76,
@@ -1139,7 +1217,8 @@ export const userSeedData: User[] = [
       lastName: 'Hunt',
       relationship: 'Brother',
       phone: '+44 7700 900126'
-    }
+    },
+    role: UserRole.member
   },
   {
     id: 77,
@@ -1154,7 +1233,8 @@ export const userSeedData: User[] = [
       lastName: 'Holmes',
       relationship: 'Sister',
       phone: '+44 7700 900127'
-    }
+    },
+    role: UserRole.member
   },
   {
     id: 78,
@@ -1169,7 +1249,8 @@ export const userSeedData: User[] = [
       lastName: 'Mills',
       relationship: 'Brother',
       phone: '+44 7700 900128'
-    }
+    },
+    role: UserRole.member
   },
   {
     id: 79,
@@ -1184,7 +1265,8 @@ export const userSeedData: User[] = [
       lastName: 'Hamilton',
       relationship: 'Sister',
       phone: '+44 7700 900129'
-    }
+    },
+    role: UserRole.member
   },
   {
     id: 80,
@@ -1199,7 +1281,8 @@ export const userSeedData: User[] = [
       lastName: 'Graham',
       relationship: 'Brother',
       phone: '+44 7700 900130'
-    }
+    },
+    role: UserRole.member
   },
   {
     id: 81,
@@ -1214,7 +1297,8 @@ export const userSeedData: User[] = [
       lastName: 'Sullivan',
       relationship: 'Sister',
       phone: '+44 7700 900131'
-    }
+    },
+    role: UserRole.member
   },
   {
     id: 82,
@@ -1229,7 +1313,8 @@ export const userSeedData: User[] = [
       lastName: 'Wallace',
       relationship: 'Brother',
       phone: '+44 7700 900132'
-    }
+    },
+    role: UserRole.member
   },
   {
     id: 83,
@@ -1244,7 +1329,8 @@ export const userSeedData: User[] = [
       lastName: 'West',
       relationship: 'Sister',
       phone: '+44 7700 900133'
-    }
+    },
+    role: UserRole.member
   },
   {
     id: 84,
@@ -1259,7 +1345,8 @@ export const userSeedData: User[] = [
       lastName: 'Burns',
       relationship: 'Brother',
       phone: '+44 7700 900134'
-    }
+    },
+    role: UserRole.member
   },
   {
     id: 85,
@@ -1274,7 +1361,8 @@ export const userSeedData: User[] = [
       lastName: 'Spencer',
       relationship: 'Sister',
       phone: '+44 7700 900135'
-    }
+    },
+    role: UserRole.member
   },
   {
     id: 86,
@@ -1289,7 +1377,8 @@ export const userSeedData: User[] = [
       lastName: 'Hart',
       relationship: 'Brother',
       phone: '+44 7700 900136'
-    }
+    },
+    role: UserRole.member
   },
   {
     id: 87,
@@ -1304,7 +1393,8 @@ export const userSeedData: User[] = [
       lastName: 'Elliott',
       relationship: 'Brother',
       phone: '+44 7700 900137'
-    }
+    },
+    role: UserRole.member
   },
   {
     id: 88,
@@ -1319,7 +1409,8 @@ export const userSeedData: User[] = [
       lastName: 'Howard',
       relationship: 'Sister',
       phone: '+44 7700 900138'
-    }
+    },
+    role: UserRole.member
   },
   {
     id: 89,
@@ -1334,7 +1425,8 @@ export const userSeedData: User[] = [
       lastName: 'Harrison',
       relationship: 'Brother',
       phone: '+44 7700 900139'
-    }
+    },
+    role: UserRole.member
   },
   {
     id: 90,
@@ -1349,7 +1441,8 @@ export const userSeedData: User[] = [
       lastName: 'Morris',
       relationship: 'Sister',
       phone: '+44 7700 900140'
-    }
+    },
+    role: UserRole.member
   },
   {
     id: 91,
@@ -1364,7 +1457,8 @@ export const userSeedData: User[] = [
       lastName: 'Morgan',
       relationship: 'Brother',
       phone: '+44 7700 900141'
-    }
+    },
+    role: UserRole.member
   },
   {
     id: 92,
@@ -1379,7 +1473,8 @@ export const userSeedData: User[] = [
       lastName: 'Bell',
       relationship: 'Sister',
       phone: '+44 7700 900142'
-    }
+    },
+    role: UserRole.member
   },
   {
     id: 93,
@@ -1394,7 +1489,8 @@ export const userSeedData: User[] = [
       lastName: 'Ward',
       relationship: 'Brother',
       phone: '+44 7700 900143'
-    }
+    },
+    role: UserRole.member
   },
   {
     id: 94,
@@ -1409,7 +1505,8 @@ export const userSeedData: User[] = [
       lastName: 'Brooks',
       relationship: 'Sister',
       phone: '+44 7700 900144'
-    }
+    },
+    role: UserRole.member
   },
   {
     id: 95,
@@ -1424,7 +1521,8 @@ export const userSeedData: User[] = [
       lastName: 'Bennett',
       relationship: 'Brother',
       phone: '+44 7700 900145'
-    }
+    },
+    role: UserRole.member
   },
   {
     id: 96,
@@ -1439,7 +1537,8 @@ export const userSeedData: User[] = [
       lastName: 'Hamilton',
       relationship: 'Sister',
       phone: '+44 7700 900146'
-    }
+    },
+    role: UserRole.member
   },
   {
     id: 97,
@@ -1454,7 +1553,8 @@ export const userSeedData: User[] = [
       lastName: 'Harrison',
       relationship: 'Brother',
       phone: '+44 7700 900147'
-    }
+    },
+    role: UserRole.member
   },
   {
     id: 98,
@@ -1469,7 +1569,8 @@ export const userSeedData: User[] = [
       lastName: 'Matthews',
       relationship: 'Sister',
       phone: '+44 7700 900148'
-    }
+    },
+    role: UserRole.member
   },
   {
     id: 99,
@@ -1484,7 +1585,8 @@ export const userSeedData: User[] = [
       lastName: 'Murray',
       relationship: 'Sister',
       phone: '+44 7700 900149'
-    }
+    },
+    role: UserRole.member
   },
   {
     id: 100,
@@ -1499,6 +1601,7 @@ export const userSeedData: User[] = [
       lastName: 'Mason',
       relationship: 'Brother',
       phone: '+44 7700 900150'
-    }
+    },
+    role: UserRole.member
   }
 ];

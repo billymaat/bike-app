@@ -6,13 +6,18 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Sort } from '@angular/material/sort';
+import { MatIconModule } from '@angular/material/icon';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-users',
-  imports: [MatCardModule,
+  imports: [
+    CommonModule,
+    MatCardModule,
     MatTableModule,
     MatButtonModule,
-    MatSortModule
+    MatSortModule,
+    MatIconModule
   ],
   providers: [UserStore],
   templateUrl: './users.page.html',
