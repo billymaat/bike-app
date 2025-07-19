@@ -5,6 +5,10 @@
     <p><strong>Date:</strong> {{ event.date | date }}</p>
     <p><strong>Location:</strong> {{ event.location }}</p>
     <p><strong>Description:</strong> {{ event.description }}</p>
+    <p><strong>Attendees:</strong> {{ event.attendees.length }}/{{ event.maxAttendees }}</p>
+    <!-- Add Attend/Not Attending buttons -->
+    <button mat-raised-button color="primary" (click)="attendEvent()" [disabled]="store.isAttending()">Attend</button>
+    <button mat-raised-button color="warn" (click)="notAttendEvent()" [disabled]="!store.isAttending()">Not Attending</button>
   </ng-container>
   <ng-template #loading>
     <p>Loading event details...</p>
