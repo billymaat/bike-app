@@ -26,10 +26,8 @@
   </form>
 
   <div class="event-list">
-    <h2>{{ filterForm.value.eventType === 'upcoming' ? 'Upcoming Events' : 'Past Events' }}</h2>
-        <!-- Add dropdown for event type -->
     <form [formGroup]="filterForm">
-      <mat-form-field appearance="outline">
+      <mat-form-field appearance="outline" class="mat-h2" style="width: 300px;">
         <mat-label>Show</mat-label>
         <mat-select formControlName="eventType">
           <mat-option value="upcoming">Upcoming Events</mat-option>

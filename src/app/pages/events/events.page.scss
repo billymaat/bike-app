@@ -47,3 +47,9 @@ form.form-group mat-form-field {
   align-items: center;
   background-color: blue($color: #000000);
 }
+
+/* Add to your component's CSS */
+::ng-deep .mat-h2 .mat-form-field-wrapper {
+  font-size: 2rem;
+  font-weight: bold;
+}
