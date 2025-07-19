@@ -17,6 +17,7 @@ import { MatInputModule } from '@angular/material/input';
 import { CycleEventQuery, EventsStore } from './events.store';
 import { CycleEventComponent } from "../../components/cycle-event/cycle-event.component";
 import { MatSelectModule } from '@angular/material/select';
+import { EventTypeFilter } from '../../services/cycle-events-filter.service';
 
 @Component({
   selector: 'app-events',
@@ -52,12 +53,16 @@ export class EventsPage {
     startDate: new FormControl(''),
     endDate: new FormControl(''),
     name: new FormControl(''),
-    eventType: new FormControl('upcoming')
+    eventType: new FormControl(EventTypeFilter.Upcoming)
   });
 
   constructor() {
     this.events = computed(() => {
       return this.store.filteredEvents().sort((a, b) => a.date.getTime() - b.date.getTime());
+    });
+
+    this.filterForm.valueChanges.subscribe(() => {
+      this.applyFilters();
     });
   }
 
@@ -83,6 +88,7 @@ export class EventsPage {
       startDate: this.filterForm.value.startDate ? new Date(this.filterForm.value.startDate) : undefined,
       endDate: this.filterForm.value.endDate ? new Date(this.filterForm.value.endDate) : undefined,
       name: this.filterForm.value.name || '',
+      eventType: this.filterForm.value.eventType || EventTypeFilter.Upcoming
     }
     this.store.setFilter(query);
   }

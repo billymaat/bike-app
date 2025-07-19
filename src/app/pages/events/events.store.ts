@@ -1,6 +1,7 @@
-import { patchState, signalStore, withComputed, withHooks, withMethods, withState } from "@ngrx/signals";
+import { patchState, signalStore, withComputed, withMethods, withState } from "@ngrx/signals";
 import { CycleEventStore } from "../../store/cycle-event-store";
 import { computed, inject } from "@angular/core";
+import { CycleEventsFilterService } from "../../services/cycle-events-filter.service";
 
 type EventsState = {
     // filteredEvents: CycleEvent[];
@@ -12,13 +13,22 @@ export interface CycleEventQuery {
     name?: string;
     startDate?: Date;
     endDate?: Date;
+    eventType?: EventTypeFilter;
+}
+
+enum EventTypeFilter {
+    Upcoming = 'upcoming',
+    Past = 'past',
+    All = 'all'
 }
 
 export const EventsStore = signalStore(
     withState<EventsState>({
         // filteredEvents: [],
         isLoading: false,
-        filter: {}
+        filter: {
+            eventType: EventTypeFilter.Upcoming
+        }
     }),
     withMethods((state, cycleEventStore = inject(CycleEventStore)) => ({
         setFilter: (filter: CycleEventQuery) => {
@@ -40,41 +50,9 @@ export const EventsStore = signalStore(
             cycleEventStore.removeCycleEvent(eventId);
         }
     })),
-    withComputed((state, cycleEventStore = inject(CycleEventStore)) => ({
+    withComputed((state, cycleEventStore = inject(CycleEventStore), cycleEventFilterService = inject(CycleEventsFilterService)) => ({
         filteredEvents: computed(() => {
-            let filtered = cycleEventStore.entities();
-            const nameFilter = state.filter().name?.toLowerCase();
-            if (nameFilter) {
-                filtered = filtered.filter(event =>
-                    event.name.toLowerCase().includes(nameFilter) ||
-                    event.location.toLowerCase().includes(nameFilter)
-                );
-            }
-            const startDate = state.filter().startDate;
-            if (startDate) {
-                filtered = filtered.filter(event =>
-                    new Date(event.date) >= new Date(startDate)
-                );
-            }
-            const endDate = state.filter().endDate;
-            if (endDate) {
-                filtered = filtered.filter(event =>
-                    new Date(event.date) <= new Date(endDate)
-                );
-            }
-            return filtered;
-        }),
-        upcomingEvents: computed(() => {
-            // get the upcoming events that are in the future
-            // and order them by the soonest first
-            return cycleEventStore.entities().filter(event => new Date(event.date) >= new Date())
-                .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
-        }),
-        pastEvents: computed(() => {
-            // get the past events that are in the past
-            // and order them by the most recent first
-            return cycleEventStore.entities().filter(event => new Date(event.date) < new Date())
-                .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-        }),
+            return cycleEventFilterService.filterEvents(cycleEventStore.entities(), state.filter());
+        })
     }))
 )

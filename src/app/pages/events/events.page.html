@@ -22,7 +22,6 @@
         <mat-datepicker #endPicker></mat-datepicker>
       </mat-form-field>
     </div>
-    <button mat-raised-button color="primary" type="submit">Apply Filters</button>
   </form>
 
   <div class="event-list">
@@ -36,7 +35,7 @@
       </mat-form-field>
     </form>
     <div class="event-list-container">
-      @for (event of filterForm.value.eventType === 'upcoming' ? store.upcomingEvents() : store.pastEvents(); track event.id) {
+      @for (event of events(); track event.id) {
         <div style="margin-bottom: 16px;">
           <cycle-event [cycleEvent]="event" 
           (editClicked)="selectEvent(event)" 
