@@ -4,6 +4,8 @@ export interface CycleEvent {
   description: string;
   date: Date;
   location: string;
+  attendees: number[]; // Array of User IDs
+  maxAttendees: number;
 }
 
 export interface CycleEventAddRequest {
@@ -11,4 +13,5 @@ export interface CycleEventAddRequest {
   description: string;
   date: Date;
   location: string;
+  maxAttendees: number;
 }

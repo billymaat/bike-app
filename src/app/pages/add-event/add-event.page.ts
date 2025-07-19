@@ -11,6 +11,7 @@ import { CycleEvent } from '../../models/cycle-event';
 import { CycleEventStore } from '../../store/cycle-event-store';
 import { MatListModule } from '@angular/material/list';
 import { Router } from '@angular/router';
+import { max } from 'rxjs';
 
 @Component({
   selector: 'app-add-event',
@@ -38,6 +39,7 @@ export class AddEventPage {
     description: new FormControl(''),
     date: new FormControl(''),
     location: new FormControl(''),
+    maxAttendees: new FormControl(0) // Assuming maxAttendees is a number
   });
 
   idCounter: number = 4;
@@ -53,7 +55,8 @@ export class AddEventPage {
       name: this.eventForm.value.name || '',
       description: this.eventForm.value.description || '',
       date: this.eventForm.value.date ? new Date(this.eventForm.value.date) : new Date(),
-      location: this.eventForm.value.location || ''
+      location: this.eventForm.value.location || '',
+      maxAttendees: this.eventForm.value.maxAttendees || 0
     })
   }
 }

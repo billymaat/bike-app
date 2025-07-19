@@ -176,7 +176,9 @@ export const SeedData: CycleEvent[] = (() => {
             name: names[i % names.length],
             description: descriptions[i % descriptions.length],
             date: eventDate,
-            location: locations[i % locations.length]
+            location: locations[i % locations.length],
+            attendees: [],
+            maxAttendees: Math.floor(Math.random() * 100) + 10 // Random
         });
     }
     return events;

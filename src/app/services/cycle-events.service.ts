@@ -20,7 +20,8 @@ export class CycleEventsService {
   addCycleEvent(event: CycleEventAddRequest): CycleEvent {
     const newEvent: CycleEvent = {
       ...event,
-      id: this._cycleEvents.length ? Math.max(...this._cycleEvents.map(e => e.id)) + 1 : 1 // simple ID generation
+      id: this._cycleEvents.length ? Math.max(...this._cycleEvents.map(e => e.id)) + 1 : 1, // simple ID generation
+      attendees: [],
     };
     this._cycleEvents.push(newEvent);
     return newEvent;

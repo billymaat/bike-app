@@ -55,7 +55,7 @@ export class DashboardPage {
         if (latestEvents.length < 4) {
           // Fill the rest with empty objects to maintain the grid structure
           while (latestEvents.length < 4) {
-            latestEvents.push({ id: 0, name: '', description: '', date: new Date(), location: '' });
+            latestEvents.push({ id: 0, name: '', description: '', date: new Date(), location: '', attendees: [], maxAttendees: 0 });
           }
         }
         // Return the grid layout for larger screens

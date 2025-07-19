@@ -41,6 +41,8 @@ export class EditEventComponent {
     description: new FormControl(''),
     date: new FormControl(''),
     location: new FormControl(''),
+    attendees: new FormControl<number[]>([]), // Assuming attendees is an array of user IDs
+    maxAttendees: new FormControl(0) // Assuming maxAttendees is a number
   });
 
   constructor() {
@@ -67,7 +69,9 @@ export class EditEventComponent {
           name: event.name,
           description: event.description,
           date: event.date ? event.date.toISOString().split('T')[0] : '',
-          location: event.location
+          location: event.location,
+          attendees: event.attendees || [],
+          maxAttendees: event.maxAttendees || 0
         });
       }
     })
@@ -79,7 +83,9 @@ export class EditEventComponent {
       name: this.eventForm.value.name || '',
       description: this.eventForm.value.description || '',
       date: this.eventForm.value.date ? new Date(this.eventForm.value.date) : new Date(),
-      location: this.eventForm.value.location || ''
+      location: this.eventForm.value.location || '',
+      attendees: this.eventForm.value.attendees || [],
+      maxAttendees: this.eventForm.value.maxAttendees || 0
     };
 
     this.store.updateCycleEvent(updatedEvent);
