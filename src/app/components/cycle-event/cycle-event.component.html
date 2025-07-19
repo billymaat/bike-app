@@ -12,6 +12,10 @@
     <mat-card-content>
         <p>{{ event.date | date }}</p>
         <p>{{ event.location }}</p>
+        <p>
+            <strong>Attendees:</strong>
+            {{ event.attendees.length }}/{{ event.maxAttendees }}
+        </p>
         <p class="desc truncate-description">{{ event.description }}</p>
     </mat-card-content>
     <mat-card-actions>
