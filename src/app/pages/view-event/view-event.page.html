@@ -6,6 +6,17 @@
     <p><strong>Location:</strong> {{ event.location }}</p>
     <p><strong>Description:</strong> {{ event.description }}</p>
     <p><strong>Attendees:</strong> {{ event.attendees.length }}/{{ event.maxAttendees }}</p>
+    <div *ngIf="store.attendingUsers().length > 0">
+      <strong>Attending Users:</strong>
+      <mat-list>
+        <mat-list-item *ngFor="let user of store.attendingUsers()">
+            <div style="display: flex; flex-direction: row;">
+                <mat-icon matListIcon>person</mat-icon>
+                <div>{{ user.firstName }} {{ user.lastName }}</div>
+            </div>
+        </mat-list-item>
+      </mat-list>
+    </div>
     <!-- Add Attend/Not Attending buttons -->
     <button mat-raised-button color="primary" (click)="attendEvent()" [disabled]="store.isAttending()">Attend</button>
     <button mat-raised-button color="warn" (click)="notAttendEvent()" [disabled]="!store.isAttending()">Not Attending</button>

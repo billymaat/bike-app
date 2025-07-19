@@ -2,6 +2,7 @@ import { inject, computed } from "@angular/core";
 import { signalStore, withState, withMethods, patchState, withComputed, withHooks } from "@ngrx/signals";
 import { CycleEventStore } from "../../store/cycle-event-store";
 import { CurrentUserStore } from "../../store/current-user-store";
+import { UserStore } from "../../pages/users/users.store";
 
 type ViewEventState = {
     isLoading: boolean;
@@ -37,7 +38,7 @@ export const ViewEventStore = signalStore(
             }
         }
     })),
-    withComputed((state, cycleEventStore = inject(CycleEventStore), currentUserStore = inject(CurrentUserStore)) => ({
+    withComputed((state, cycleEventStore = inject(CycleEventStore), currentUserStore = inject(CurrentUserStore), userStore = inject(UserStore)) => ({
         event: computed(() => {
             // This will re-compute when the entities change
             const events = cycleEventStore.entities();
@@ -48,6 +49,12 @@ export const ViewEventStore = signalStore(
             const userId = currentUserStore.user()?.id;
             if (!event || !userId) return false;
             return event.attendees.includes(userId);
+        }),
+        attendingUsers: computed(() => {
+            const event = cycleEventStore.entities().find(e => e.id === state.eventId());
+            if (!event) return [];
+            const users = userStore.users();
+            return users.filter(u => event.attendees.includes(u.id));
         }),
     }))
 );

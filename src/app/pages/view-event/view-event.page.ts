@@ -3,12 +3,18 @@ import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ViewEventStore } from './view-event.store';
 import { MatButtonModule } from '@angular/material/button';
+import { UserStore } from '../users/users.store';
+import { MatListModule } from '@angular/material/list';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-view-event',
   imports: [CommonModule,
-     MatButtonModule],
-  providers: [ViewEventStore],
+     MatButtonModule,
+    MatListModule,
+    MatIconModule
+  ],
+  providers: [ViewEventStore, UserStore],
   templateUrl: './view-event.page.html',
   styleUrl: './view-event.page.scss'
 })
@@ -29,7 +35,7 @@ export class ViewEventPage {
   attendEvent() {
     this.store.setAttending(true);
   }
-  
+
   notAttendEvent() {
     this.store.setAttending(false);
   }
