@@ -20,7 +20,10 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class CycleEventComponent {
   cycleEvent = input.required<CycleEvent>();
-
+  showEditButton: InputSignal<boolean> = input(false);
+  showDeleteButton: InputSignal<boolean> = input(false);
+  showViewEventButton: InputSignal<boolean> = input(false);
+  
   editClicked = output<void>();
   deleteClicked = output<void>();
   viewClicked = output<void>();

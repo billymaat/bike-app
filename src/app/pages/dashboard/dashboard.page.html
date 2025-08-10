@@ -3,7 +3,10 @@
   <mat-grid-list cols="2" rowHeight="350px">
     @for (event of events(); track event.cycleEvent.id) {
       <mat-grid-tile [colspan]="event.cols" [rowspan]="event.rows">
-        <cycle-event class="dashboard-card" [cycleEvent]="event.cycleEvent"></cycle-event>
+        <cycle-event 
+          class="dashboard-card" 
+          [cycleEvent]="event.cycleEvent"
+          [showViewEventButton]="true"></cycle-event>
       </mat-grid-tile>
     }
   </mat-grid-list>
