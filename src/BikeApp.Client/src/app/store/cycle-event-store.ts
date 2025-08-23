@@ -37,10 +37,12 @@ export const CycleEventStore = signalStore(
       // simulate a delay to mimic data fetching
       patchState(store, { isLoading: true });
       setTimeout(() => {
-        patchState(store, {
-          isLoading: false,
+        cycleEventService.getAllCycleEvents().subscribe(events => {
+          patchState(store, {
+            isLoading: false,
+          });
+          patchState(store, setAllEntities(events));
         });
-        patchState(store, setAllEntities(cycleEventService.cycleEvents));
       }, 1000);
       
     }

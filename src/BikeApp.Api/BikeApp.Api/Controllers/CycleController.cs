@@ -1,4 +1,7 @@
 ﻿using BikeApp.Api.Db;
+using BikeApp.Api.Dto;
+using BikeApp.Api.Mappings;
+using BikeApp.Api.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,9 +20,11 @@ namespace BikeApp.Api.Controllers
 		}
 
 		[HttpGet("getall")]
+		[ProducesResponseType(typeof(List<CycleEventDto>), StatusCodes.Status200OK)]
+
 		public IActionResult GetAll()
 		{
-			return Ok(_context.CycleEvents.ToList()); // Example of accessing the DbContext
+			return Ok(_context.CycleEvents.Select(o => o.ToDto()).ToList()); // Example of accessing the DbContext
 		}
 
 		// GET: api/Cycle

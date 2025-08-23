@@ -1,20 +1,33 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { CycleEvent, CycleEventAddRequest } from '../models/cycle-event';
 import { SeedData } from '../store/seed-data';
 
+import { map, Observable, of } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { CycleClient } from '../api/api';
+import { CycleEventMapper } from '../mapping/cycle-event.mapper';
+
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CycleEventsService {
 
   private _cycleEvents: CycleEvent[] = [];
+  http = inject(HttpClient);
+
+  cycleClient = inject(CycleClient);
+
   constructor() { 
     // seed the data
     this._cycleEvents = SeedData;
   }
 
-  get cycleEvents(): CycleEvent[] {
-    return [...this._cycleEvents]; // return a copy to prevent external mutation
+  // Mock HTTP GET method to fetch all cycle events
+  getAllCycleEvents(): Observable<CycleEvent[]> {
+    // Simulate HTTP GET by returning an observable
+    return this.cycleClient.getAll().pipe(
+      map(o => o.map(e => CycleEventMapper.fromDto(e)))
+    );
   }
 
   addCycleEvent(event: CycleEventAddRequest): CycleEvent {

@@ -14,11 +14,23 @@ namespace BikeApp.Api
             // Add services to the container.
 
             builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddOpenApiDocument();
+
+			// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+			builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+            builder.Services.AddCors(options =>
+			{
+				options.AddPolicy("AllowAllOrigins", builder =>
+				{
+					builder.AllowAnyOrigin()
+						   .AllowAnyMethod()
+						   .AllowAnyHeader();
+				});
+			});
+
+			var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 			builder.Services.AddDbContext<BikeAppDbContext>(options =>
 	            options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
@@ -26,12 +38,14 @@ namespace BikeApp.Api
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
+			{
+				app.UseOpenApi();
+				app.UseSwagger();
                 app.UseSwaggerUI();
-            }
+                app.UseSwaggerUi(); // UseSwaggerUI Protected by if (env.IsDevelopment())
+			}
 
-            using (var scope = app.Services.CreateScope())
+			using (var scope = app.Services.CreateScope())
             {
 	            var services = scope.ServiceProvider;
 	            var context = services.GetRequiredService<BikeAppDbContext>();
@@ -43,8 +57,9 @@ namespace BikeApp.Api
 
             app.UseAuthorization();
 
+            app.UseCors("AllowAllOrigins");
 
-            app.MapControllers();
+			app.MapControllers();
 
             app.Run();
         }
