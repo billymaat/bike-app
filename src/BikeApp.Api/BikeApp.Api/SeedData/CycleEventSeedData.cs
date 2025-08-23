@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using BikeApp.Api.Entity;
 
 namespace BikeApp.Api.Model
 {
-	public static class SeedData
+	public static class CycleEventSeedData
 	{
-		public static List<CycleEvent> Events
+		public static List<CycleEventEntity> Events
 		{
 			get
 			{
@@ -177,7 +178,7 @@ namespace BikeApp.Api.Model
 				};
 
 				var baseDate = new DateTime(2025, 6, 27); // June 27, 2025
-				var events = new List<CycleEvent>();
+				var events = new List<CycleEventEntity>();
 				var rand = new Random();
 
 				for (int i = 0; i < 100; i++)
@@ -185,9 +186,8 @@ namespace BikeApp.Api.Model
 					int dateOffset = i * 2 - 40;
 					var eventDate = baseDate.AddDays(dateOffset);
 
-					events.Add(new CycleEvent
+					events.Add(new CycleEventEntity
 					{
-						Id = i + 1,
 						Name = names[i % names.Count],
 						Description = descriptions[i % descriptions.Count],
 						Date = eventDate,

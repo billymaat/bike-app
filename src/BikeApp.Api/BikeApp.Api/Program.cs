@@ -1,4 +1,8 @@
 
+using BikeApp.Api.Db;
+using BikeApp.Api.SeedData;
+using Microsoft.EntityFrameworkCore;
+
 namespace BikeApp.Api
 {
     public class Program
@@ -14,7 +18,11 @@ namespace BikeApp.Api
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            var app = builder.Build();
+            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+			builder.Services.AddDbContext<BikeAppDbContext>(options =>
+	            options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+
+			var app = builder.Build();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
@@ -23,7 +31,15 @@ namespace BikeApp.Api
                 app.UseSwaggerUI();
             }
 
-            app.UseHttpsRedirection();
+            using (var scope = app.Services.CreateScope())
+            {
+	            var services = scope.ServiceProvider;
+	            var context = services.GetRequiredService<BikeAppDbContext>();
+
+	            DbInitializer.Initialize(context);
+            }
+
+			app.UseHttpsRedirection();
 
             app.UseAuthorization();
 
