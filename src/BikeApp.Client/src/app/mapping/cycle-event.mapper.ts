@@ -1,5 +1,5 @@
 import { CycleEvent, CycleEventAddRequest, CycleEventUpdateRequest } from '../models/cycle-event';
-import { CycleEventAddRequestDto, CycleEventDto, CycleEventUpdateRequestDto } from '../api/api';
+import { CycleEventAddRequestDto, CycleEventDto, CycleEventUpdateRequestDto, UserDto } from '../api/api';
 
 export class CycleEventMapper {
   /**

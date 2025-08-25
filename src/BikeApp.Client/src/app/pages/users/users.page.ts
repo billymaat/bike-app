@@ -1,4 +1,4 @@
-import { Component, inject, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, inject, ViewChild, AfterViewInit, effect } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
 import { UserStore } from './users.store';
@@ -19,7 +19,6 @@ import { CommonModule } from '@angular/common';
     MatSortModule,
     MatIconModule
   ],
-  providers: [UserStore],
   templateUrl: './users.page.html',
   styleUrl: './users.page.scss'
 })
@@ -29,6 +28,12 @@ export class UsersPage implements AfterViewInit {
 
   dataSource = new MatTableDataSource(this.store.users());
   @ViewChild(MatSort) sort!: MatSort;
+
+  constructor() {
+    effect(() => {
+      this.dataSource.data = this.store.users();
+    })
+  }
 
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;

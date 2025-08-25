@@ -1,3 +1,4 @@
+using BikeApp.Api.Dto;
 using BikeApp.Api.Entity;
 using BikeApp.Api.Model;
 
@@ -47,5 +48,31 @@ namespace BikeApp.Api.Mappings
                 Role = model.Role.ToString()
             };
         }
-    }
+
+        public static UserDto ToDto(this UserEntity entity)
+        {
+	        return new UserDto()
+	        {
+		        Id = entity.Id,
+		        Address = entity.Address,
+		        Age = entity.Age,
+		        Email = entity.Email,
+		        FirstName = entity.FirstName,
+		        LastName = entity.LastName,
+		        Phone = entity.Phone,
+		        EmergencyContact = (entity.EmergencyContactFirstName == null &&
+		                            entity.EmergencyContactLastName == null &&
+		                            entity.EmergencyContactRelationship == null && entity.EmergencyContactPhone == null)
+			        ? null
+			        : new EmergencyContactDto
+			        {
+				        FirstName = entity.EmergencyContactFirstName ?? string.Empty,
+				        LastName = entity.EmergencyContactLastName ?? string.Empty,
+				        Relationship = entity.EmergencyContactRelationship ?? string.Empty,
+				        Phone = entity.EmergencyContactPhone ?? string.Empty
+			        },
+		        Role = Enum.TryParse<UserRoleDto>(entity.Role, true, out var role) ? role : UserRoleDto.Member
+	        };
+        }
+	}
 }

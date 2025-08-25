@@ -8,18 +8,16 @@ import {
   withEntities,
 } from '@ngrx/signals/entities';
 import { CycleEventsService } from '../services/cycle-events.service';
-import { computed, inject } from '@angular/core';
+import { inject } from '@angular/core';
 import { pipe, tap, switchMap, catchError, of } from 'rxjs';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 
 type CycleEventState = {
-  cycleEvents: CycleEvent[];
   isLoading: boolean;
   filter: { query: string; order: 'asc' | 'desc' };
 };
 
 const initialState: CycleEventState = {
-  cycleEvents: [],
   isLoading: false,
   filter: { query: '', order: 'asc' },
 };
