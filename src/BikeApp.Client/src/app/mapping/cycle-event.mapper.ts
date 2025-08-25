@@ -1,5 +1,5 @@
-import { CycleEvent } from '../models/cycle-event';
-import { CycleEventDto } from '../api/api';
+import { CycleEvent, CycleEventAddRequest, CycleEventUpdateRequest } from '../models/cycle-event';
+import { CycleEventAddRequestDto, CycleEventDto, CycleEventUpdateRequestDto } from '../api/api';
 
 export class CycleEventMapper {
   /**
@@ -28,6 +28,26 @@ export class CycleEventMapper {
       date: event.date,
       location: event.location,
       attendees: event.attendees,
+      maxAttendees: event.maxAttendees,
+    });
+  }
+
+  static toCycleEventAddRequestDto(event: CycleEventAddRequest) : CycleEventAddRequestDto {
+    return new CycleEventAddRequestDto({
+      name: event.name,
+      description: event.description,
+      date: event.date,
+      location: event.location,
+      maxAttendees: event.maxAttendees,
+    });
+  }
+
+  static toCycleEventUpdateRequestDto(event: CycleEventUpdateRequest) : CycleEventUpdateRequestDto {
+    return new CycleEventUpdateRequestDto({
+      name: event.name,
+      description: event.description,
+      date: event.date,
+      location: event.location,
       maxAttendees: event.maxAttendees,
     });
   }

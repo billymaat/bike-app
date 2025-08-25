@@ -1,4 +1,4 @@
-import { Component, effect, Inject, inject, signal } from '@angular/core';
+import { Component, computed, effect, Inject, inject, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CycleEventStore } from '../../store/cycle-event-store';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -10,6 +10,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { CycleEvent } from '../../models/cycle-event';
+import { EditEventStore } from './edit-event-store';
 
 @Component({
   selector: 'app-edit-event',
@@ -21,7 +22,9 @@ import { CycleEvent } from '../../models/cycle-event';
     MatInputModule,
     MatButtonModule
   ],
-  providers: [provideNativeDateAdapter()],
+  providers: [
+    provideNativeDateAdapter(), 
+    EditEventStore],
   templateUrl: './edit-event.page.html',
   styleUrl: './edit-event.page.scss'  
 })
@@ -29,11 +32,10 @@ export class EditEventComponent {
 
   public dialogRef = inject(MatDialogRef<EditEventComponent>);
   public data = inject(MAT_DIALOG_DATA);
-
+  private editEventStore = inject(EditEventStore);
   private originalEvent: CycleEvent | null = null;
   store = inject(CycleEventStore);
   private activatedRoute = inject(ActivatedRoute);
-  eventId = signal<number>(0);
   
   eventForm = new FormGroup({
     id: new FormControl(0),
@@ -48,16 +50,14 @@ export class EditEventComponent {
   constructor() {
     console.log("EditEventComponent initialized with data:", this.data);
     console.log(this.data.eventId);
-    this.eventId.set(this.data.eventId || 0);
     this.activatedRoute.params.subscribe(params => {
       if (params['id']) {
-        this.eventId.set(+params['id']);
+        this.editEventStore.setEventId(+params['id']);
       }
     });
 
     effect(() => {
-      console.log('Event ID changed:', this.eventId());
-      const event = this.store.getCycleEvent(this.eventId());
+      const event = this.editEventStore.cycleEvent();
       if (event) {
         if (!this.originalEvent)
         {
@@ -75,11 +75,14 @@ export class EditEventComponent {
         });
       }
     })
+
+    // set event id
+    this.editEventStore.setEventId(this.data.eventId || 0);
   }
 
   onSubmit() {
     const updatedEvent = {
-      id: this.eventId(),
+      id: this.editEventStore.eventId(),
       name: this.eventForm.value.name || '',
       description: this.eventForm.value.description || '',
       date: this.eventForm.value.date ? new Date(this.eventForm.value.date) : new Date(),

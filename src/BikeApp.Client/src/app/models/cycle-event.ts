@@ -15,3 +15,11 @@ export interface CycleEventAddRequest {
   location: string;
   maxAttendees: number;
 }
+
+export interface CycleEventUpdateRequest {
+  name: string;
+  description: string;
+  date: Date;
+  location: string;
+  maxAttendees: number;
+}

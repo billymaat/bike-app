@@ -1,5 +1,6 @@
 ﻿using BikeApp.Api.Db;
 using BikeApp.Api.Dto;
+using BikeApp.Api.Entity;
 using BikeApp.Api.Mappings;
 using BikeApp.Api.Model;
 using Microsoft.AspNetCore.Http;
@@ -24,7 +25,7 @@ namespace BikeApp.Api.Controllers
 
 		public IActionResult GetAll()
 		{
-			return Ok(_context.CycleEvents.Select(o => o.ToDto()).ToList()); // Example of accessing the DbContext
+			return Ok(_context.CycleEvents.Skip(1).Select(o => o.ToDto()).ToList()); // Example of accessing the DbContext
 		}
 
 		// GET: api/Cycle
@@ -35,21 +36,61 @@ namespace BikeApp.Api.Controllers
 		}
 		// GET: api/Cycle/5
 		[HttpGet("{id}")]
-		public IActionResult Get(int id)
+		[ProducesResponseType(typeof(CycleEventDto), StatusCodes.Status200OK)]
+
+		public IActionResult GetById(int id)
 		{
-			return Ok($"Cycle event with ID {id} retrieved successfully.");
+			var matched = _context.CycleEvents.FirstOrDefault(i => i.Id == id);
+			if (matched == null)
+			{
+				return NotFound();
+			}
+
+			var dto = matched.ToDto();
+			return Ok(dto);
 		}
+
 		// POST: api/Cycle
 		[HttpPost]
-		public IActionResult Post([FromBody] string value)
+		[ProducesResponseType(typeof(CycleEventDto), StatusCodes.Status200OK)]
+
+		public IActionResult Add([FromBody] CycleEventAddRequestDto value)
 		{
-			return CreatedAtAction(nameof(Get), new { id = 1 }, value);
+			var cycleEvent = new CycleEventEntity()
+			{
+				Name = value.Name,
+				MaxAttendees = value.MaxAttendees,
+				Date = value.Date,
+				Description = value.Description,
+				Location = value.Location,
+				Attendees = new List<int>() // Initialize with an empty list or handle as needed
+			};
+
+			_context.CycleEvents.Add(cycleEvent);
+			_context.SaveChanges();
+
+			var dto = cycleEvent.ToDto();
+			return Ok(dto);
 		}
+
 		// PUT: api/Cycle/5
 		[HttpPut("{id}")]
-		public IActionResult Put(int id, [FromBody] string value)
+		[ProducesResponseType(StatusCodes.Status200OK)]
+		public IActionResult Put(int id, [FromBody] CycleEventUpdateRequestDto updateDto)
 		{
-			return NoContent();
+			var match = _context.CycleEvents.FirstOrDefault(i => i.Id == id);
+			if (match == null)
+			{
+				return NotFound();
+			}
+
+			match.Attendees = updateDto.Attendees;
+			match.Description = updateDto.Description;
+			match.Date = updateDto.Date;
+			match.Location = updateDto.Location;
+			match.Name = updateDto.Name;
+			_context.SaveChanges();
+			return Ok();
 		}
 		// DELETE: api/Cycle/5
 		[HttpDelete("{id}")]

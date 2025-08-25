@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { CycleEvent, CycleEventAddRequest } from '../models/cycle-event';
+import { CycleEvent, CycleEventAddRequest, CycleEventUpdateRequest } from '../models/cycle-event';
 import { SeedData } from '../store/seed-data';
 
 import { map, Observable, of } from 'rxjs';
@@ -30,26 +30,22 @@ export class CycleEventsService {
     );
   }
 
-  addCycleEvent(event: CycleEventAddRequest): CycleEvent {
-    const newEvent: CycleEvent = {
-      ...event,
-      id: this._cycleEvents.length ? Math.max(...this._cycleEvents.map(e => e.id)) + 1 : 1, // simple ID generation
-      attendees: [],
-    };
-    this._cycleEvents.push(newEvent);
-    return newEvent;
+  addCycleEvent(event: CycleEventAddRequest): Observable<CycleEvent> {
+    const dto = CycleEventMapper.toCycleEventAddRequestDto(event);
+    return this.cycleClient.add(dto).pipe(
+      map(e => CycleEventMapper.fromDto(e))
+    );
   }
 
-  getCycleEvent(id: number): CycleEvent | null {
-    const event = this._cycleEvents.find(e => e.id === id);
-    return event ? { ...event } : null;
-  } 
+  getCycleEvent(id: number): Observable<CycleEvent | null> {
+    return this.cycleClient.getById(id).pipe(
+      map(event => event ? CycleEventMapper.fromDto(event) : null)
+    );
+  }
 
-  updateCycleEvent(event: CycleEvent): void {
-    const index = this._cycleEvents.findIndex(e => e.id === event.id);
-    if (index !== -1) {
-      this._cycleEvents[index] = event;
-    }
+  updateCycleEvent(id: number, event: CycleEventUpdateRequest): Observable<void> {
+    const dto = CycleEventMapper.toCycleEventUpdateRequestDto(event);
+    return this.cycleClient.put(id, dto);
   }
 
   removeCycleEvent(id: number): void {

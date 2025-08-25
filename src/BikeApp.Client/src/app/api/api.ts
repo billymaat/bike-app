@@ -134,7 +134,7 @@ export class CycleClient {
         return _observableOf(null as any);
     }
 
-    post(value: string): Observable<FileResponse> {
+    add(value: CycleEventAddRequestDto): Observable<CycleEventDto> {
         let url_ = this.baseUrl + "/api/Cycle";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -146,42 +146,38 @@ export class CycleClient {
             responseType: "blob",
             headers: new HttpHeaders({
                 "Content-Type": "application/json",
-                "Accept": "application/octet-stream"
+                "Accept": "application/json"
             })
         };
 
         return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processPost(response_);
+            return this.processAdd(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processPost(response_ as any);
+                    return this.processAdd(response_ as any);
                 } catch (e) {
-                    return _observableThrow(e) as any as Observable<FileResponse>;
+                    return _observableThrow(e) as any as Observable<CycleEventDto>;
                 }
             } else
-                return _observableThrow(response_) as any as Observable<FileResponse>;
+                return _observableThrow(response_) as any as Observable<CycleEventDto>;
         }));
     }
 
-    protected processPost(response: HttpResponseBase): Observable<FileResponse> {
+    protected processAdd(response: HttpResponseBase): Observable<CycleEventDto> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
             (response as any).error instanceof Blob ? (response as any).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200 || status === 206) {
-            const contentDisposition = response.headers ? response.headers.get("content-disposition") : undefined;
-            let fileNameMatch = contentDisposition ? /filename\*=(?:(\\?['"])(.*?)\1|(?:[^\s]+'.*?')?([^;\n]*))/g.exec(contentDisposition) : undefined;
-            let fileName = fileNameMatch && fileNameMatch.length > 1 ? fileNameMatch[3] || fileNameMatch[2] : undefined;
-            if (fileName) {
-                fileName = decodeURIComponent(fileName);
-            } else {
-                fileNameMatch = contentDisposition ? /filename="?([^"]*?)"?(;|$)/g.exec(contentDisposition) : undefined;
-                fileName = fileNameMatch && fileNameMatch.length > 1 ? fileNameMatch[1] : undefined;
-            }
-            return _observableOf({ fileName: fileName, data: responseBlob as any, status: status, headers: _headers });
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = CycleEventDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
@@ -190,7 +186,7 @@ export class CycleClient {
         return _observableOf(null as any);
     }
 
-    get2(id: number): Observable<FileResponse> {
+    getById(id: number): Observable<CycleEventDto> {
         let url_ = this.baseUrl + "/api/Cycle/{id}";
         if (id === undefined || id === null)
             throw new globalThis.Error("The parameter 'id' must be defined.");
@@ -201,42 +197,38 @@ export class CycleClient {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "application/octet-stream"
+                "Accept": "application/json"
             })
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGet2(response_);
+            return this.processGetById(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processGet2(response_ as any);
+                    return this.processGetById(response_ as any);
                 } catch (e) {
-                    return _observableThrow(e) as any as Observable<FileResponse>;
+                    return _observableThrow(e) as any as Observable<CycleEventDto>;
                 }
             } else
-                return _observableThrow(response_) as any as Observable<FileResponse>;
+                return _observableThrow(response_) as any as Observable<CycleEventDto>;
         }));
     }
 
-    protected processGet2(response: HttpResponseBase): Observable<FileResponse> {
+    protected processGetById(response: HttpResponseBase): Observable<CycleEventDto> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
             (response as any).error instanceof Blob ? (response as any).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200 || status === 206) {
-            const contentDisposition = response.headers ? response.headers.get("content-disposition") : undefined;
-            let fileNameMatch = contentDisposition ? /filename\*=(?:(\\?['"])(.*?)\1|(?:[^\s]+'.*?')?([^;\n]*))/g.exec(contentDisposition) : undefined;
-            let fileName = fileNameMatch && fileNameMatch.length > 1 ? fileNameMatch[3] || fileNameMatch[2] : undefined;
-            if (fileName) {
-                fileName = decodeURIComponent(fileName);
-            } else {
-                fileNameMatch = contentDisposition ? /filename="?([^"]*?)"?(;|$)/g.exec(contentDisposition) : undefined;
-                fileName = fileNameMatch && fileNameMatch.length > 1 ? fileNameMatch[1] : undefined;
-            }
-            return _observableOf({ fileName: fileName, data: responseBlob as any, status: status, headers: _headers });
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = CycleEventDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
@@ -245,14 +237,14 @@ export class CycleClient {
         return _observableOf(null as any);
     }
 
-    put(id: number, value: string): Observable<FileResponse> {
+    put(id: number, updateDto: CycleEventUpdateRequestDto): Observable<void> {
         let url_ = this.baseUrl + "/api/Cycle/{id}";
         if (id === undefined || id === null)
             throw new globalThis.Error("The parameter 'id' must be defined.");
         url_ = url_.replace("{id}", encodeURIComponent("" + id));
         url_ = url_.replace(/[?&]$/, "");
 
-        const content_ = JSON.stringify(value);
+        const content_ = JSON.stringify(updateDto);
 
         let options_ : any = {
             body: content_,
@@ -260,7 +252,6 @@ export class CycleClient {
             responseType: "blob",
             headers: new HttpHeaders({
                 "Content-Type": "application/json",
-                "Accept": "application/octet-stream"
             })
         };
 
@@ -271,31 +262,24 @@ export class CycleClient {
                 try {
                     return this.processPut(response_ as any);
                 } catch (e) {
-                    return _observableThrow(e) as any as Observable<FileResponse>;
+                    return _observableThrow(e) as any as Observable<void>;
                 }
             } else
-                return _observableThrow(response_) as any as Observable<FileResponse>;
+                return _observableThrow(response_) as any as Observable<void>;
         }));
     }
 
-    protected processPut(response: HttpResponseBase): Observable<FileResponse> {
+    protected processPut(response: HttpResponseBase): Observable<void> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
             (response as any).error instanceof Blob ? (response as any).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200 || status === 206) {
-            const contentDisposition = response.headers ? response.headers.get("content-disposition") : undefined;
-            let fileNameMatch = contentDisposition ? /filename\*=(?:(\\?['"])(.*?)\1|(?:[^\s]+'.*?')?([^;\n]*))/g.exec(contentDisposition) : undefined;
-            let fileName = fileNameMatch && fileNameMatch.length > 1 ? fileNameMatch[3] || fileNameMatch[2] : undefined;
-            if (fileName) {
-                fileName = decodeURIComponent(fileName);
-            } else {
-                fileNameMatch = contentDisposition ? /filename="?([^"]*?)"?(;|$)/g.exec(contentDisposition) : undefined;
-                fileName = fileNameMatch && fileNameMatch.length > 1 ? fileNameMatch[1] : undefined;
-            }
-            return _observableOf({ fileName: fileName, data: responseBlob as any, status: status, headers: _headers });
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return _observableOf(null as any);
+            }));
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
@@ -488,6 +472,126 @@ export class CycleEventDto implements ICycleEventDto {
 }
 
 export interface ICycleEventDto {
+    id?: number;
+    name?: string;
+    description?: string;
+    date?: Date;
+    location?: string;
+    attendees?: number[];
+    maxAttendees?: number;
+}
+
+export class CycleEventAddRequestDto implements ICycleEventAddRequestDto {
+    name?: string;
+    description?: string;
+    date?: Date;
+    location?: string;
+    maxAttendees?: number;
+
+    constructor(data?: ICycleEventAddRequestDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (this as any)[property] = (data as any)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.name = _data["name"];
+            this.description = _data["description"];
+            this.date = _data["date"] ? new Date(_data["date"].toString()) : undefined as any;
+            this.location = _data["location"];
+            this.maxAttendees = _data["maxAttendees"];
+        }
+    }
+
+    static fromJS(data: any): CycleEventAddRequestDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CycleEventAddRequestDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["name"] = this.name;
+        data["description"] = this.description;
+        data["date"] = this.date ? this.date.toISOString() : undefined as any;
+        data["location"] = this.location;
+        data["maxAttendees"] = this.maxAttendees;
+        return data;
+    }
+}
+
+export interface ICycleEventAddRequestDto {
+    name?: string;
+    description?: string;
+    date?: Date;
+    location?: string;
+    maxAttendees?: number;
+}
+
+export class CycleEventUpdateRequestDto implements ICycleEventUpdateRequestDto {
+    id?: number;
+    name?: string;
+    description?: string;
+    date?: Date;
+    location?: string;
+    attendees?: number[];
+    maxAttendees?: number;
+
+    constructor(data?: ICycleEventUpdateRequestDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (this as any)[property] = (data as any)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.name = _data["name"];
+            this.description = _data["description"];
+            this.date = _data["date"] ? new Date(_data["date"].toString()) : undefined as any;
+            this.location = _data["location"];
+            if (Array.isArray(_data["attendees"])) {
+                this.attendees = [] as any;
+                for (let item of _data["attendees"])
+                    this.attendees!.push(item);
+            }
+            this.maxAttendees = _data["maxAttendees"];
+        }
+    }
+
+    static fromJS(data: any): CycleEventUpdateRequestDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CycleEventUpdateRequestDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["name"] = this.name;
+        data["description"] = this.description;
+        data["date"] = this.date ? this.date.toISOString() : undefined as any;
+        data["location"] = this.location;
+        if (Array.isArray(this.attendees)) {
+            data["attendees"] = [];
+            for (let item of this.attendees)
+                data["attendees"].push(item);
+        }
+        data["maxAttendees"] = this.maxAttendees;
+        return data;
+    }
+}
+
+export interface ICycleEventUpdateRequestDto {
     id?: number;
     name?: string;
     description?: string;
