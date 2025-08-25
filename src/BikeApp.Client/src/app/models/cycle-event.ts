@@ -22,4 +22,5 @@ export interface CycleEventUpdateRequest {
   date: Date;
   location: string;
   maxAttendees: number;
+  attendees: number[];
 }

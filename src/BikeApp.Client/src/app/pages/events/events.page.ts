@@ -75,6 +75,14 @@ export class EventsPage {
     })
   }
 
+   selectEventTmp() {
+    this.dialog.open(EditEventComponent, {
+      width: '400px',
+      data: {
+        eventId: 1
+      }
+    })
+  }
   deleteEvent(evt: any, event: CycleEvent) {
     this.store.removeCycleEvent(event.id);
   }

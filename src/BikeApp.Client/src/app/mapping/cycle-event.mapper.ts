@@ -49,6 +49,7 @@ export class CycleEventMapper {
       date: event.date,
       location: event.location,
       maxAttendees: event.maxAttendees,
+      attendees: event.attendees,
     });
   }
 }

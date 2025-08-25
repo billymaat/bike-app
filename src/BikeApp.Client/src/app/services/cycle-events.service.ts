@@ -45,6 +45,7 @@ export class CycleEventsService {
 
   updateCycleEvent(id: number, event: CycleEventUpdateRequest): Observable<void> {
     const dto = CycleEventMapper.toCycleEventUpdateRequestDto(event);
+    console.log(dto);
     return this.cycleClient.put(id, dto);
   }
 

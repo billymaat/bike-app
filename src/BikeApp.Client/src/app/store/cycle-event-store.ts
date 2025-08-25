@@ -59,7 +59,7 @@ export const CycleEventStore = signalStore(
         return entity;
       }
       else {
-        this.getSelectedCycleEventById(eventId);
+        this.loadEventById(eventId);
       }
       return null;
     },
@@ -98,7 +98,7 @@ export const CycleEventStore = signalStore(
       cycleEventService.removeCycleEvent(eventId);
       patchState(store, removeEntity(eventId));
     },
-    getSelectedCycleEventById: rxMethod<number>(
+    loadEventById: rxMethod<number>(
       pipe (
         switchMap((eventId) => 
           cycleEventService.getCycleEvent(eventId).pipe(
