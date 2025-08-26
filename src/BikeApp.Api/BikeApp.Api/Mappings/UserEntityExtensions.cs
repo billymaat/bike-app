@@ -17,14 +17,14 @@ namespace BikeApp.Api.Mappings
                 Age = entity.Age,
                 Address = entity.Address,
                 Phone = entity.Phone,
-                EmergencyContact = (entity.EmergencyContactFirstName == null && entity.EmergencyContactLastName == null && entity.EmergencyContactRelationship == null && entity.EmergencyContactPhone == null)
+                EmergencyContact = entity.EmergencyContact == null
                     ? null
                     : new EmergencyContact
                     {
-                        FirstName = entity.EmergencyContactFirstName ?? string.Empty,
-                        LastName = entity.EmergencyContactLastName ?? string.Empty,
-                        Relationship = entity.EmergencyContactRelationship ?? string.Empty,
-                        Phone = entity.EmergencyContactPhone ?? string.Empty
+                        FirstName = entity.EmergencyContact.FirstName,
+                        LastName = entity.EmergencyContact.LastName,
+                        Relationship = entity.EmergencyContact.Relationship,
+                        Phone = entity.EmergencyContact.Phone
                     },
                 Role = Enum.TryParse<UserRole>(entity.Role, true, out var role) ? role : UserRole.Member
             };
@@ -41,10 +41,13 @@ namespace BikeApp.Api.Mappings
                 Age = model.Age,
                 Address = model.Address,
                 Phone = model.Phone,
-                EmergencyContactFirstName = model.EmergencyContact?.FirstName,
-                EmergencyContactLastName = model.EmergencyContact?.LastName,
-                EmergencyContactRelationship = model.EmergencyContact?.Relationship,
-                EmergencyContactPhone = model.EmergencyContact?.Phone,
+                EmergencyContact = model.EmergencyContact == null ? null : new EmergencyContactEntity
+                {
+                    FirstName = model.EmergencyContact.FirstName,
+                    LastName = model.EmergencyContact.LastName,
+                    Relationship = model.EmergencyContact.Relationship,
+                    Phone = model.EmergencyContact.Phone
+                },
                 Role = model.Role.ToString()
             };
         }
@@ -60,17 +63,15 @@ namespace BikeApp.Api.Mappings
 		        FirstName = entity.FirstName,
 		        LastName = entity.LastName,
 		        Phone = entity.Phone,
-		        EmergencyContact = (entity.EmergencyContactFirstName == null &&
-		                            entity.EmergencyContactLastName == null &&
-		                            entity.EmergencyContactRelationship == null && entity.EmergencyContactPhone == null)
-			        ? null
-			        : new EmergencyContactDto
-			        {
-				        FirstName = entity.EmergencyContactFirstName ?? string.Empty,
-				        LastName = entity.EmergencyContactLastName ?? string.Empty,
-				        Relationship = entity.EmergencyContactRelationship ?? string.Empty,
-				        Phone = entity.EmergencyContactPhone ?? string.Empty
-			        },
+                EmergencyContact = entity.EmergencyContact == null
+                    ? null
+                    : new EmergencyContactDto
+                    {
+                        FirstName = entity.EmergencyContact.FirstName,
+                        LastName = entity.EmergencyContact.LastName,
+                        Relationship = entity.EmergencyContact.Relationship,
+                        Phone = entity.EmergencyContact.Phone
+                    },
 		        Role = Enum.TryParse<UserRoleDto>(entity.Role, true, out var role) ? role : UserRoleDto.Member
 	        };
         }

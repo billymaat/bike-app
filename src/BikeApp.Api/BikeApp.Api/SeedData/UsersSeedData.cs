@@ -1,11 +1,9 @@
-using System.Collections.Generic;
 using BikeApp.Api.Entity;
 
 public static class UsersSeedData
 {
 	public static List<UserEntity> GetUsers() => new List<UserEntity>
 	{
-		// First 10 users: admin
 		new UserEntity
 		{
 			Id = 1,
@@ -15,10 +13,13 @@ public static class UsersSeedData
 			Age = 28,
 			Address = "12 High Street, London, SW1A 1AA",
 			Phone = "+44 7700 900001",
-			EmergencyContactFirstName = "Emily",
-			EmergencyContactLastName = "Smith",
-			EmergencyContactRelationship = "Sister",
-			EmergencyContactPhone = "+44 7700 900051",
+			EmergencyContact = new EmergencyContactEntity
+			{
+				FirstName = "Emily",
+				LastName = "Smith",
+				Relationship = "Sister",
+				Phone = "+44 7700 900051"
+			},
 			Role = "Admin"
 		},
 		new UserEntity
@@ -30,10 +31,13 @@ public static class UsersSeedData
 			Age = 34,
 			Address = "45 Queen Road, Manchester, M1 2AB",
 			Phone = "+44 7700 900002",
-			EmergencyContactFirstName = "James",
-			EmergencyContactLastName = "Jones",
-			EmergencyContactRelationship = "Brother",
-			EmergencyContactPhone = "+44 7700 900052",
+			EmergencyContact = new EmergencyContactEntity
+			{
+				FirstName = "James",
+				LastName = "Jones",
+				Relationship = "Brother",
+				Phone = "+44 7700 900052"
+			},
 			Role = "Admin"
 		},
 		new UserEntity
@@ -45,10 +49,13 @@ public static class UsersSeedData
 			Age = 22,
 			Address = "78 King Street, Birmingham, B1 1AA",
 			Phone = "+44 7700 900003",
-			EmergencyContactFirstName = "Sophie",
-			EmergencyContactLastName = "Brown",
-			EmergencyContactRelationship = "Mother",
-			EmergencyContactPhone = "+44 7700 900053",
+			EmergencyContact = new EmergencyContactEntity
+			{
+				FirstName = "Sophie",
+				LastName = "Brown",
+				Relationship = "Mother",
+				Phone = "+44 7700 900053"
+			},
 			Role = "Admin"
 		},
 		new UserEntity
@@ -60,10 +67,13 @@ public static class UsersSeedData
 			Age = 29,
 			Address = "23 Park Lane, Bristol, BS1 5TY",
 			Phone = "+44 7700 900004",
-			EmergencyContactFirstName = "Jack",
-			EmergencyContactLastName = "Taylor",
-			EmergencyContactRelationship = "Father",
-			EmergencyContactPhone = "+44 7700 900054",
+			EmergencyContact = new EmergencyContactEntity
+			{
+				FirstName = "Jack",
+				LastName = "Taylor",
+				Relationship = "Father",
+				Phone = "+44 7700 900054"
+			},
 			Role = "Admin"
 		},
 		new UserEntity
@@ -75,10 +85,13 @@ public static class UsersSeedData
 			Age = 31,
 			Address = "56 Victoria Road, Leeds, LS1 2HQ",
 			Phone = "+44 7700 900005",
-			EmergencyContactFirstName = "Grace",
-			EmergencyContactLastName = "Wilson",
-			EmergencyContactRelationship = "Wife",
-			EmergencyContactPhone = "+44 7700 900055",
+			EmergencyContact = new EmergencyContactEntity
+			{
+				FirstName = "Grace",
+				LastName = "Wilson",
+				Relationship = "Wife",
+				Phone = "+44 7700 900055"
+			},
 			Role = "Admin"
 		},
 		new UserEntity
@@ -90,10 +103,13 @@ public static class UsersSeedData
 			Age = 27,
 			Address = "89 Oxford Road, Liverpool, L1 8JQ",
 			Phone = "+44 7700 900006",
-			EmergencyContactFirstName = "Daniel",
-			EmergencyContactLastName = "Evans",
-			EmergencyContactRelationship = "Brother",
-			EmergencyContactPhone = "+44 7700 900056",
+			EmergencyContact = new EmergencyContactEntity
+			{
+				FirstName = "Daniel",
+				LastName = "Evans",
+				Relationship = "Brother",
+				Phone = "+44 7700 900056"
+			},
 			Role = "Admin"
 		},
 		new UserEntity
@@ -105,10 +121,13 @@ public static class UsersSeedData
 			Age = 36,
 			Address = "14 Castle Street, Edinburgh, EH1 2NG",
 			Phone = "+44 7700 900007",
-			EmergencyContactFirstName = "Ella",
-			EmergencyContactLastName = "Thomas",
-			EmergencyContactRelationship = "Sister",
-			EmergencyContactPhone = "+44 7700 900057",
+			EmergencyContact = new EmergencyContactEntity
+			{
+				FirstName = "Ella",
+				LastName = "Thomas",
+				Relationship = "Sister",
+				Phone = "+44 7700 900057"
+			},
 			Role = "Admin"
 		},
 		new UserEntity
@@ -120,10 +139,13 @@ public static class UsersSeedData
 			Age = 25,
 			Address = "67 George Square, Glasgow, G2 1DY",
 			Phone = "+44 7700 900008",
-			EmergencyContactFirstName = "Oscar",
-			EmergencyContactLastName = "Moore",
-			EmergencyContactRelationship = "Brother",
-			EmergencyContactPhone = "+44 7700 900058",
+			EmergencyContact = new EmergencyContactEntity
+			{
+				FirstName = "Oscar",
+				LastName = "Moore",
+				Relationship = "Brother",
+				Phone = "+44 7700 900058"
+			},
 			Role = "Admin"
 		},
 		new UserEntity
@@ -135,10 +157,13 @@ public static class UsersSeedData
 			Age = 30,
 			Address = "21 Market Street, Cardiff, CF10 1AU",
 			Phone = "+44 7700 900009",
-			EmergencyContactFirstName = "Mia",
-			EmergencyContactLastName = "Martin",
-			EmergencyContactRelationship = "Sister",
-			EmergencyContactPhone = "+44 7700 900059",
+			EmergencyContact = new EmergencyContactEntity
+			{
+				FirstName = "Mia",
+				LastName = "Martin",
+				Relationship = "Sister",
+				Phone = "+44 7700 900059"
+			},
 			Role = "Admin"
 		},
 		new UserEntity
@@ -150,10 +175,13 @@ public static class UsersSeedData
 			Age = 24,
 			Address = "34 Bridge Road, Newcastle, NE1 2TY",
 			Phone = "+44 7700 900010",
-			EmergencyContactFirstName = "Leo",
-			EmergencyContactLastName = "Clark",
-			EmergencyContactRelationship = "Brother",
-			EmergencyContactPhone = "+44 7700 900060",
+			EmergencyContact = new EmergencyContactEntity
+			{
+				FirstName = "Leo",
+				LastName = "Clark",
+				Relationship = "Brother",
+				Phone = "+44 7700 900060"
+			},
 			Role = "Admin"
 		},
 		// ...continue for all other users as in the TypeScript file...
