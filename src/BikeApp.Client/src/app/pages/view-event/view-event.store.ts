@@ -3,6 +3,7 @@ import { signalStore, withState, withMethods, patchState, withComputed, withHook
 import { CycleEventStore } from "../../store/cycle-event-store";
 import { CurrentUserStore } from "../../store/current-user-store";
 import { UserStore } from "../../pages/users/users.store";
+import { User } from "../../models/user";
 
 type ViewEventState = {
     isLoading: boolean;
@@ -53,8 +54,14 @@ export const ViewEventStore = signalStore(
         attendingUsers: computed(() => {
             const event = cycleEventStore.entities().find(e => e.id === state.eventId());
             if (!event) return [];
-            const users = userStore.users();
-            return users.filter(u => event.attendees.includes(u.id));
+            let retUsers: User[] = [];
+            event.attendees.forEach(u => {
+                const user = userStore.getUserById(u);
+                if (user) {
+                    retUsers.push(user);
+                }
+            });
+            return retUsers;
         }),
     }))
 );

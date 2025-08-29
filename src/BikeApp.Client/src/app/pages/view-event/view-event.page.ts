@@ -14,7 +14,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatListModule,
     MatIconModule
   ],
-  providers: [ViewEventStore, UserStore],
+  providers: [ViewEventStore],
   templateUrl: './view-event.page.html',
   styleUrl: './view-event.page.scss'
 })

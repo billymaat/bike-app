@@ -460,7 +460,7 @@ export class UsersClient {
         return _observableOf(null as any);
     }
 
-    get(id: number): Observable<string> {
+    get(id: number): Observable<UserDto> {
         let url_ = this.baseUrl + "/api/Users/{id}";
         if (id === undefined || id === null)
             throw new globalThis.Error("The parameter 'id' must be defined.");
@@ -482,14 +482,14 @@ export class UsersClient {
                 try {
                     return this.processGet(response_ as any);
                 } catch (e) {
-                    return _observableThrow(e) as any as Observable<string>;
+                    return _observableThrow(e) as any as Observable<UserDto>;
                 }
             } else
-                return _observableThrow(response_) as any as Observable<string>;
+                return _observableThrow(response_) as any as Observable<UserDto>;
         }));
     }
 
-    protected processGet(response: HttpResponseBase): Observable<string> {
+    protected processGet(response: HttpResponseBase): Observable<UserDto> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -500,8 +500,7 @@ export class UsersClient {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result200 = resultData200 !== undefined ? resultData200 : null as any;
-    
+            result200 = UserDto.fromJS(resultData200);
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {

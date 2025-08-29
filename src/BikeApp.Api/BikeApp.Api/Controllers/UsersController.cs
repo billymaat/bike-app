@@ -27,9 +27,16 @@ namespace BikeApp.Api.Controllers
 
 		// GET api/<UsersController>/5
 		[HttpGet("{id}")]
-		public string Get(int id)
+		[ProducesResponseType(typeof(UserDto), StatusCodes.Status200OK)]
+		public IActionResult Get(int id)
 		{
-			return "value";
+			var user = _context.Users.FirstOrDefault(u => u.Id == id);
+			if (user == null)
+			{
+				return NotFound();
+			}
+
+			return Ok(user.ToDto());
 		}
 
 		// POST api/<UsersController>

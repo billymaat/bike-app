@@ -16,4 +16,10 @@ export class UsersService {
       map(users => users.map(user => UserMapper.fromDto(user)))
     );
   }
+
+  getUserById(userId: number) {
+    return this.usersClient.get(userId).pipe(
+      map(user => UserMapper.fromDto(user))
+    );
+  }
 }
