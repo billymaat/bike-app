@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BikeApp.Api.Migrations
 {
     [DbContext(typeof(BikeAppDbContext))]
-    [Migration("20250823211952_InitialCreate")]
+    [Migration("20250829203814_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -32,10 +32,6 @@ namespace BikeApp.Api.Migrations
                         .HasColumnType("int");
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
-
-                    b.PrimitiveCollection<string>("Attendees")
-                        .IsRequired()
-                        .HasColumnType("longtext");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime(6)");
@@ -60,36 +56,13 @@ namespace BikeApp.Api.Migrations
                     b.ToTable("CycleEvents");
                 });
 
-            modelBuilder.Entity("BikeApp.Api.Entity.UserEntity", b =>
+            modelBuilder.Entity("BikeApp.Api.Entity.EmergencyContactEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<int>("Age")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("EmergencyContactFirstName")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("EmergencyContactLastName")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("EmergencyContactPhone")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("EmergencyContactRelationship")
-                        .HasColumnType("longtext");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -103,13 +76,79 @@ namespace BikeApp.Api.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<string>("Relationship")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EmergencyContacts");
+                });
+
+            modelBuilder.Entity("BikeApp.Api.Entity.UserEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Address")
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("Age")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CycleEventEntityId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int?>("EmergencyContactId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Phone")
+                        .HasColumnType("longtext");
+
                     b.Property<string>("Role")
                         .IsRequired()
                         .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CycleEventEntityId");
+
+                    b.HasIndex("EmergencyContactId");
+
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("BikeApp.Api.Entity.UserEntity", b =>
+                {
+                    b.HasOne("BikeApp.Api.Entity.CycleEventEntity", null)
+                        .WithMany("Attendees")
+                        .HasForeignKey("CycleEventEntityId");
+
+                    b.HasOne("BikeApp.Api.Entity.EmergencyContactEntity", "EmergencyContact")
+                        .WithMany()
+                        .HasForeignKey("EmergencyContactId");
+
+                    b.Navigation("EmergencyContact");
+                });
+
+            modelBuilder.Entity("BikeApp.Api.Entity.CycleEventEntity", b =>
+                {
+                    b.Navigation("Attendees");
                 });
 #pragma warning restore 612, 618
         }

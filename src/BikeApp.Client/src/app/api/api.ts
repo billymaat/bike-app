@@ -682,11 +682,11 @@ export class WeatherForecastClient {
 
 export class CycleEventDto implements ICycleEventDto {
     id?: number;
-    name?: string;
-    description?: string;
+    name?: string | undefined;
+    description?: string | undefined;
     date?: Date;
-    location?: string;
-    attendees?: number[];
+    location?: string | undefined;
+    attendees?: number[] | undefined;
     maxAttendees?: number;
 
     constructor(data?: ICycleEventDto) {
@@ -740,11 +740,11 @@ export class CycleEventDto implements ICycleEventDto {
 
 export interface ICycleEventDto {
     id?: number;
-    name?: string;
-    description?: string;
+    name?: string | undefined;
+    description?: string | undefined;
     date?: Date;
-    location?: string;
-    attendees?: number[];
+    location?: string | undefined;
+    attendees?: number[] | undefined;
     maxAttendees?: number;
 }
 

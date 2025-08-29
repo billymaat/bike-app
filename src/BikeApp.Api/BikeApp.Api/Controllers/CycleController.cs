@@ -5,6 +5,7 @@ using BikeApp.Api.Mappings;
 using BikeApp.Api.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace BikeApp.Api.Controllers
 {
@@ -25,7 +26,7 @@ namespace BikeApp.Api.Controllers
 
 		public IActionResult GetAll()
 		{
-			return Ok(_context.CycleEvents.Skip(1).Select(o => o.ToDto()).ToList()); // Example of accessing the DbContext
+			return Ok(_context.CycleEvents.Include(e => e.Attendees).Select(o => o.ToDto()).ToList()); // Example of accessing the DbContext
 		}
 
 		// GET: api/Cycle
@@ -63,7 +64,7 @@ namespace BikeApp.Api.Controllers
 				Date = value.Date,
 				Description = value.Description,
 				Location = value.Location,
-				Attendees = new List<int>() // Initialize with an empty list or handle as needed
+				Attendees = new List<UserEntity>() // Initialize with an empty list or handle as needed
 			};
 
 			_context.CycleEvents.Add(cycleEvent);
@@ -78,13 +79,24 @@ namespace BikeApp.Api.Controllers
 		[ProducesResponseType(StatusCodes.Status200OK)]
 		public IActionResult Put(int id, [FromBody] CycleEventUpdateRequestDto updateDto)
 		{
-			var match = _context.CycleEvents.FirstOrDefault(i => i.Id == id);
+			var match = _context.CycleEvents
+				.Include(e => e.Attendees)
+				.FirstOrDefault(i => i.Id == id);
 			if (match == null)
 			{
 				return NotFound();
 			}
 
-			match.Attendees = updateDto.Attendees;
+			var attendees = _context.Users.Where(u => updateDto.Attendees.Contains(u.Id)).ToList();
+			match.Attendees?.Clear();
+			if (match.Attendees == null)
+			{
+				match.Attendees = new List<UserEntity>();
+			}
+			foreach (var attendee in attendees)
+			{
+				match.Attendees?.Add(attendee);
+			}
 			match.Description = updateDto.Description;
 			match.Date = updateDto.Date;
 			match.Location = updateDto.Location;

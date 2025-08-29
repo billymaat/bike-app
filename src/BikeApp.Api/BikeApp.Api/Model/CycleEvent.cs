@@ -11,7 +11,7 @@ namespace BikeApp.Api.Model
 		public string Description { get; set; }
 		public DateTime Date { get; set; }
 		public string Location { get; set; }
-		public List<int> Attendees { get; set; }
+		public List<User> Attendees { get; set; }
 		public int MaxAttendees { get; set; }
 	}
 }

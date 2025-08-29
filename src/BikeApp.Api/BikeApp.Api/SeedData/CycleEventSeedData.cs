@@ -192,7 +192,7 @@ namespace BikeApp.Api.Model
 						Description = descriptions[i % descriptions.Count],
 						Date = eventDate,
 						Location = locations[i % locations.Count],
-						Attendees = new List<int>(), // or List<User> if you have a User class
+						Attendees = new List<UserEntity>(), // or List<User> if you have a User class
 						MaxAttendees = rand.Next(10, 110)
 					});
 				}
