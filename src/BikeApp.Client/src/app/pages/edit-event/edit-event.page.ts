@@ -89,7 +89,7 @@ export class EditEventComponent {
       description: this.eventForm.value.description != this.originalEvent?.description
         ? this.eventForm.value.description || ''
         : undefined,
-      date: this.eventForm.value.date ? new Date(this.eventForm.value.date) : new Date(),
+      date: this.eventForm.value.date ? new Date(this.eventForm.value.date) : undefined,
       location: this.eventForm.value.location != this.originalEvent?.location
         ? this.eventForm.value.location || ''
         : undefined,

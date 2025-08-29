@@ -18,6 +18,7 @@ import { CycleEventQuery, EventsStore } from './events.store';
 import { CycleEventComponent } from "../../components/cycle-event/cycle-event.component";
 import { MatSelectModule } from '@angular/material/select';
 import { EventTypeFilter } from '../../services/cycle-events-filter.service';
+import { DeleteEventDialogComponent } from './delete-event-dialog.component';
 
 @Component({
   selector: 'app-events',
@@ -84,7 +85,16 @@ export class EventsPage {
     })
   }
   deleteEvent(evt: any, event: CycleEvent) {
-    this.store.removeCycleEvent(event.id);
+    const dialogRef = this.dialog.open(DeleteEventDialogComponent, {
+      width: '400px',
+      data: { event }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.store.removeCycleEvent(event.id);
+      }
+    });
   }
   
   viewEvent(cycleEvent: CycleEvent) {
