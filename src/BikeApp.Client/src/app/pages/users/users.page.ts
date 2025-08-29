@@ -30,6 +30,7 @@ export class UsersPage implements AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor() {
+    this.store.loadAllUsers();
     effect(() => {
       this.dataSource.data = this.store.users();
     })

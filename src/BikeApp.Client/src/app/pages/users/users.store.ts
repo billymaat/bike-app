@@ -52,6 +52,25 @@ export const UserStore = signalStore(
       }
       return null;
     },
+    loadAllUsers: rxMethod<void>(
+        pipe(
+          tap(() => patchState(store, { isLoading: true })),
+          switchMap(() =>
+            usersService.getUsers().pipe(
+              tap((users) => {
+                patchState(store, {
+                  isLoading: false,
+                });
+                patchState(store, setAllEntities(users));
+              }),
+              catchError((err) => {
+                patchState(store, { isLoading: false });
+                return of([]); // keep stream alive
+              }),
+            )
+          ),
+        )
+      ),
     loadUserById: rxMethod<number>(
       pipe(
         switchMap((userId) => 
@@ -70,6 +89,8 @@ export const UserStore = signalStore(
     )
   })),
   withComputed((state) => ({
-    users: computed(() => state.entities())
+    users: computed(() => {
+      return state.entities();
+    })
   }))
 );
