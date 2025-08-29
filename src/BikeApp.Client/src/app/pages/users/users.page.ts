@@ -26,7 +26,7 @@ export class UsersPage implements AfterViewInit {
 
   store = inject(UserStore);
 
-  dataSource = new MatTableDataSource(this.store.users());
+  dataSource = new MatTableDataSource();
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor() {

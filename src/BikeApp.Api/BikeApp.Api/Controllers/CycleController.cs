@@ -87,20 +87,47 @@ namespace BikeApp.Api.Controllers
 				return NotFound();
 			}
 
-			var attendees = _context.Users.Where(u => updateDto.Attendees.Contains(u.Id)).ToList();
-			match.Attendees?.Clear();
-			if (match.Attendees == null)
+
+			if (updateDto.MaxAttendees.HasValue)
 			{
-				match.Attendees = new List<UserEntity>();
+				match.MaxAttendees = updateDto.MaxAttendees.Value;
 			}
-			foreach (var attendee in attendees)
+
+			if (updateDto.Attendees != null)
 			{
-				match.Attendees?.Add(attendee);
+				var attendees = _context.Users.Where(u => updateDto.Attendees.Contains(u.Id)).ToList();
+				match.Attendees?.Clear();
+				if (match.Attendees == null)
+				{
+					match.Attendees = new List<UserEntity>();
+				}
+
+				foreach (var attendee in attendees)
+				{
+					match.Attendees?.Add(attendee);
+				}
 			}
-			match.Description = updateDto.Description;
-			match.Date = updateDto.Date;
-			match.Location = updateDto.Location;
-			match.Name = updateDto.Name;
+
+			if (updateDto.Description != null)
+			{
+				match.Description = updateDto.Description;
+			}
+
+			if (updateDto.Date.HasValue)
+			{
+				match.Date = updateDto.Date.Value;
+			}
+			
+			if (updateDto.Location != null)
+			{
+				match.Location = updateDto.Location;
+			}
+
+			if (updateDto.Name != null)
+			{
+				match.Name = updateDto.Name;
+			}
+
 			_context.SaveChanges();
 			return Ok();
 		}

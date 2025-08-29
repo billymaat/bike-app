@@ -1,5 +1,5 @@
 import { patchState, signalStore, withComputed, withHooks, withMethods, withState } from '@ngrx/signals';
-import { CycleEvent, CycleEventAddRequest } from '../models/cycle-event';
+import { CycleEvent, CycleEventAddRequest, CycleEventUpdateRequest } from '../models/cycle-event';
 import {
   addEntity,
   removeEntity,
@@ -21,6 +21,12 @@ const initialState: CycleEventState = {
   isLoading: false,
   filter: { query: '', order: 'asc' },
 };
+
+function stripNullish<T extends object>(obj: T): Partial<T> {
+  return Object.fromEntries(
+    Object.entries(obj).filter(([_, v]) => v !== null && v !== undefined)
+  ) as Partial<T>;
+}
 
 export const CycleEventStore = signalStore(
   { providedIn: 'root' },
@@ -77,12 +83,12 @@ export const CycleEventStore = signalStore(
         )
       )
     ),
-    updateCycleEvent: rxMethod<CycleEvent>(
+    updateCycleEvent: rxMethod<{ id: number, request: CycleEventUpdateRequest}>(
       pipe(
-        switchMap((event) =>
-          cycleEventService.updateCycleEvent(event.id, event).pipe(
+        switchMap((input) =>
+          cycleEventService.updateCycleEvent(input.id, input.request).pipe(
             tap((updated) => {
-              patchState(store, updateEntity({ id: event.id, changes: event }));
+              patchState(store, updateEntity({ id: input.id, changes: stripNullish(input.request) }));
             }),
             catchError((err) => {
               console.error('Failed to update cycle event', err);

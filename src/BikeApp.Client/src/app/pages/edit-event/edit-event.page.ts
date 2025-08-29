@@ -9,7 +9,7 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
-import { CycleEvent } from '../../models/cycle-event';
+import { CycleEvent, CycleEventUpdateRequest } from '../../models/cycle-event';
 import { EditEventStore } from './edit-event-store';
 
 @Component({
@@ -81,17 +81,23 @@ export class EditEventComponent {
   }
 
   onSubmit() {
-    const updatedEvent = {
-      id: this.editEventStore.eventId(),
-      name: this.eventForm.value.name || '',
-      description: this.eventForm.value.description || '',
+    const id = this.editEventStore.eventId();
+    const updatedEvent: CycleEventUpdateRequest = {
+      name: this.eventForm.value.name != this.originalEvent?.name
+        ? this.eventForm.value.name || ''
+        : undefined,
+      description: this.eventForm.value.description != this.originalEvent?.description
+        ? this.eventForm.value.description || ''
+        : undefined,
       date: this.eventForm.value.date ? new Date(this.eventForm.value.date) : new Date(),
-      location: this.eventForm.value.location || '',
-      attendees: this.eventForm.value.attendees || [],
-      maxAttendees: this.eventForm.value.maxAttendees || 0
+      location: this.eventForm.value.location != this.originalEvent?.location
+        ? this.eventForm.value.location || ''
+        : undefined,
+      attendees: undefined,
+      maxAttendees: undefined,
     };
 
-    this.store.updateCycleEvent(updatedEvent);
+    this.store.updateCycleEvent({ id: id, request: updatedEvent});
     this.dialogRef.close(updatedEvent);
     console.log('Event updated:', updatedEvent);
   }

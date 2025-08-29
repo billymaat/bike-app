@@ -31,11 +31,11 @@ export const ViewEventStore = signalStore(
             
             if (attending) {
                 const updatedEvent = { ...event, attendees: [...event.attendees, userId ] };
-                cycleEventStore.updateCycleEvent(updatedEvent);
+                cycleEventStore.updateCycleEvent({ id: event.id, request: updatedEvent});
                 console.log('User is attending the event:', updatedEvent);
             } else {
                 const updatedEvent = { ...event, attendees: event.attendees.filter(id => id !== userId) };
-                cycleEventStore.updateCycleEvent(updatedEvent);
+                cycleEventStore.updateCycleEvent({ id: event.id, request: updatedEvent});
             }
         }
     })),

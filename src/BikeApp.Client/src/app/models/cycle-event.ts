@@ -17,10 +17,10 @@ export interface CycleEventAddRequest {
 }
 
 export interface CycleEventUpdateRequest {
-  name: string;
-  description: string;
-  date: Date;
-  location: string;
-  maxAttendees: number;
-  attendees: number[];
+  name?: string;
+  description?: string;
+  date?: Date;
+  location?: string;
+  maxAttendees?: number;
+  attendees?: number[];
 }
