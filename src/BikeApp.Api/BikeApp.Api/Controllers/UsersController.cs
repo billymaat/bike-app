@@ -2,6 +2,7 @@
 using BikeApp.Api.Dto;
 using BikeApp.Api.Mappings;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -22,7 +23,7 @@ namespace BikeApp.Api.Controllers
 		[ProducesResponseType(typeof(List<UserDto>), StatusCodes.Status200OK)]
 		public IActionResult GetAll()
 		{
-			return Ok(_context.Users.Select(o => o.ToDto()).ToList());
+			return Ok(_context.Users.Include(e => e.EmergencyContact).Select(o => o.ToDto()).ToList());
 		}
 
 		// GET api/<UsersController>/5
@@ -30,7 +31,9 @@ namespace BikeApp.Api.Controllers
 		[ProducesResponseType(typeof(UserDto), StatusCodes.Status200OK)]
 		public IActionResult Get(int id)
 		{
-			var user = _context.Users.FirstOrDefault(u => u.Id == id);
+			var user = _context.Users
+				.Include(e => e.EmergencyContact)
+				.FirstOrDefault(u => u.Id == id);
 			if (user == null)
 			{
 				return NotFound();

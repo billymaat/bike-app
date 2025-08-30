@@ -8,6 +8,9 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Sort } from '@angular/material/sort';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { ViewUserDialog } from './view-user-dialog.component';
+import { User } from '../../models/user';
 
 @Component({
   selector: 'app-users',
@@ -17,7 +20,8 @@ import { CommonModule } from '@angular/common';
     MatTableModule,
     MatButtonModule,
     MatSortModule,
-    MatIconModule
+    MatIconModule,
+    MatDialogModule
   ],
   templateUrl: './users.page.html',
   styleUrl: './users.page.scss'
@@ -25,6 +29,7 @@ import { CommonModule } from '@angular/common';
 export class UsersPage implements AfterViewInit {
 
   store = inject(UserStore);
+  dialog = inject(MatDialog);
 
   dataSource = new MatTableDataSource();
   @ViewChild(MatSort) sort!: MatSort;
@@ -60,8 +65,11 @@ export class UsersPage implements AfterViewInit {
     });
   }
 
-  viewUser(userId: number) {
-    // Logic to view user details
+  viewUser(user: User) {
+    this.dialog.open(ViewUserDialog, {
+      width: '500px',
+      data: user
+    });
   }
 }
 
