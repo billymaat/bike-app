@@ -6,7 +6,8 @@
         <cycle-event 
           class="dashboard-card" 
           [cycleEvent]="event.cycleEvent"
-          [showViewEventButton]="true"></cycle-event>
+          [showViewEventButton]="true"
+          (viewClicked)="onViewEvent(event.cycleEvent)"></cycle-event>
       </mat-grid-tile>
     }
   </mat-grid-list>

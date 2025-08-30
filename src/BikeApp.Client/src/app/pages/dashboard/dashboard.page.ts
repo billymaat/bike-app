@@ -11,6 +11,7 @@ import { DashboardStore } from './dashboard-store';
 import { CycleEvent } from '../../models/cycle-event';
 import { CycleEventComponent } from "../../components/cycle-event/cycle-event.component";
 import { toSignal } from '@angular/core/rxjs-interop';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -29,6 +30,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 })
 export class DashboardPage {
   private breakpointObserver = inject(BreakpointObserver);
+  private router = inject(Router);
 
   store = inject(DashboardStore);
   events: Signal<{ 
@@ -72,23 +74,7 @@ export class DashboardPage {
   /** Based on the screen size, switch from standard to one column per row */
   handset = toSignal(this.breakpointObserver.observe(Breakpoints.Handset), { initialValue: null})
 
-  // .pipe(
-  //   map(({ matches }) => {
-  //     if (matches) {
-  //       return [
-  //         { title: 'Card 1', cols: 1, rows: 1 },
-  //         { title: 'Card 2', cols: 1, rows: 1 },
-  //         { title: 'Card 3', cols: 1, rows: 1 },
-  //         { title: 'Card 4', cols: 1, rows: 1 }
-  //       ];
-  //     }
-
-  //     return [
-  //       { title: 'Card 1', cols: 2, rows: 1 },
-  //       { title: 'Card 2', cols: 1, rows: 1 },
-  //       { title: 'Card 3', cols: 1, rows: 2 },
-  //       { title: 'Card 4', cols: 1, rows: 1 }
-  //     ];
-  //   })
-  // );
+  onViewEvent(event: CycleEvent) {
+    this.router.navigate(['/view-event', event.id]);
+  }
 }
