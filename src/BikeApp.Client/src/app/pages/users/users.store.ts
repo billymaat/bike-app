@@ -19,28 +19,30 @@ export const UserStore = signalStore(
   withEntities<User>(),
   withState<UserStoreState>(initialState),
   withHooks({
-    // onInit(store, usersService = inject(UsersService)) {
-    //   const loadUsers = rxMethod<void>(
-    //     pipe(
-    //       tap(() => patchState(store, { isLoading: true })),
-    //       switchMap(() =>
-    //         usersService.getUsers().pipe(
-    //           tap((users) => {
-    //             patchState(store, {
-    //               isLoading: false,
-    //             });
-    //             patchState(store, setAllEntities(users));
-    //           }),
-    //           catchError((err) => {
-    //             patchState(store, { isLoading: false });
-    //             return of([]); // keep stream alive
-    //           }),
-    //         )
-    //       ),
-    //     )
-    //   );
-    //   loadUsers();
-    // }
+
+    onInit(store, usersService = inject(UsersService)) {
+      // this is repeated code I need to figure out how to remove
+      const loadUsers = rxMethod<void>(
+        pipe(
+          tap(() => patchState(store, { isLoading: true })),
+          switchMap(() =>
+            usersService.getUsers().pipe(
+              tap((users) => {
+                patchState(store, {
+                  isLoading: false,
+                });
+                patchState(store, setAllEntities(users));
+              }),
+              catchError((err) => {
+                patchState(store, { isLoading: false });
+                return of([]); // keep stream alive
+              }),
+            )
+          ),
+        )
+      );
+      loadUsers();
+    }
   }),
   withMethods((store, usersService = inject(UsersService)) => ({
     getUserById(userId: number) {
@@ -54,6 +56,7 @@ export const UserStore = signalStore(
     },
     loadAllUsers: rxMethod<void>(
         pipe(
+          
           tap(() => patchState(store, { isLoading: true })),
           switchMap(() =>
             usersService.getUsers().pipe(

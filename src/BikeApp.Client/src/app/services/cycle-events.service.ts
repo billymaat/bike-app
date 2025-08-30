@@ -1,6 +1,5 @@
 import { inject, Injectable } from '@angular/core';
 import { CycleEvent, CycleEventAddRequest, CycleEventUpdateRequest } from '../models/cycle-event';
-import { SeedData } from '../store/seed-data';
 
 import { map, Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
@@ -16,11 +15,6 @@ export class CycleEventsService {
   http = inject(HttpClient);
 
   cycleClient = inject(CycleClient);
-
-  constructor() { 
-    // seed the data
-    this._cycleEvents = SeedData;
-  }
 
   // Mock HTTP GET method to fetch all cycle events
   getAllCycleEvents(): Observable<CycleEvent[]> {

@@ -1,27 +1,30 @@
 import { signalStore, withState, withHooks, patchState, withMethods } from "@ngrx/signals";
 import { User } from "../models/user";
-import { userSeedData } from "./user-seed-data";
+import { UserStore } from "../pages/users/users.store";
+import { inject } from "@angular/core";
 
 type CurrentUserState = {
     user: User | null;
 };
-
 const initialState: CurrentUserState = {
-    user: userSeedData[0],
+    user: null
 };
 
 export const CurrentUserStore = signalStore(
     { providedIn: 'root' },
     withState(initialState),
-    // withHooks({
-    //     onInit(store) {
-    //         // Initialize the store with any necessary data or state
-    //         patchState(store, {
-    //             user: null,
-    //         });
-    //     }
-    // }),
-    withMethods((store) => ({
+    withHooks({
+        onInit(store, userStore = inject(UserStore)) {
+            // Initialize the store with any necessary data or state
+            // const usrs = userStore.users()
+            // const indx = Math.floor(Math.random() * usrs.length);
+            // const user = userStore.getUserById(indx);
+            // patchState(store, {
+            //     user: user,
+            // });
+        }
+    }),
+    withMethods((store, userStore = inject(UserStore)) => ({
         setUser: (user: User) => {
             patchState(store, { user });
         },
@@ -32,7 +35,14 @@ export const CurrentUserStore = signalStore(
             return store.user;
         },
         login: () => {
-            patchState(store, { user: userSeedData[0] });
+            const usrs = userStore.users()
+            if (usrs == null) {
+                return;
+            }
+            const indx = Math.floor(Math.random() * usrs.length);
+            const user = userStore.getUserById(indx);
+            console.log(user);
+            patchState(store, { user: user });
         }
     }))
 );

@@ -24,8 +24,11 @@ export const ViewEventStore = signalStore(
             // Logic to handle attending or not attending
             const event = cycleEventStore.getCycleEvent(state.eventId())
             const userId = currentUserStore.user()?.id;
-            if (!event || !userId) {
-                console.error('Event or user not found');
+            if (!event) {
+                console.error('Event not found');
+                return;
+            } else if (!userId) {
+                console.error('User not found');
                 return;
             }
             

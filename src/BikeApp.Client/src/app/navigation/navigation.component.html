@@ -5,6 +5,9 @@
     </button>
     <span class="spacer"></span>
     <ng-container *ngIf="isLoggedIn(); else loginButton">
+      <div>
+        <span>Welcome, {{ user()!.firstName }}!</span>
+      </div>
       <button mat-icon-button [matMenuTriggerFor]="userMenu">
         <mat-icon>account_circle</mat-icon>
       </button>
