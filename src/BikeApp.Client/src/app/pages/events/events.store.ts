@@ -23,6 +23,7 @@ enum EventTypeFilter {
 }
 
 export const EventsStore = signalStore(
+    { providedIn: 'root' },
     withState<EventsState>({
         // filteredEvents: [],
         isLoading: false,

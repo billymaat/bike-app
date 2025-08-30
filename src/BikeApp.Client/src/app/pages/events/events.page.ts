@@ -38,7 +38,7 @@ import { DeleteEventDialogComponent } from './delete-event-dialog.component';
     MatOptionModule,
     MatSelectModule
 ],
-  providers: [provideNativeDateAdapter(), EventsStore],
+  providers: [provideNativeDateAdapter()],
   templateUrl: './events.page.html',
   styleUrl: './events.page.scss'
 })
@@ -51,10 +51,10 @@ export class EventsPage {
   readonly dialog = inject(MatDialog);
 
   filterForm = new FormGroup({
-    startDate: new FormControl(''),
-    endDate: new FormControl(''),
-    name: new FormControl(''),
-    eventType: new FormControl(EventTypeFilter.Upcoming)
+    startDate: new FormControl<Date | null>(null),
+    endDate: new FormControl<Date | null>(null),
+    name: new FormControl<string>(''),
+    eventType: new FormControl<EventTypeFilter>(EventTypeFilter.Upcoming)
   });
 
   constructor() {
@@ -64,6 +64,14 @@ export class EventsPage {
 
     this.filterForm.valueChanges.subscribe(() => {
       this.applyFilters();
+    });
+
+    const filter = this.store.filter();
+    this.filterForm.patchValue({
+      startDate: filter.startDate ? new Date(filter.startDate) : null,
+      endDate: filter.endDate ? new Date(filter.endDate) : null,
+      name: filter.name ? filter.name : '',
+      eventType: filter.eventType
     });
   }
 
