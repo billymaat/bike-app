@@ -186,11 +186,16 @@ namespace BikeApp.Api.Model
 					int dateOffset = i * 2 - 40;
 					var eventDate = baseDate.AddDays(dateOffset);
 
+					// Assign a suitable time: morning (9:00), afternoon (14:00), or evening (18:30)
+					TimeSpan[] possibleTimes = { new TimeSpan(9, 0, 0), new TimeSpan(14, 0, 0), new TimeSpan(18, 30, 0) };
+					var time = possibleTimes[rand.Next(possibleTimes.Length)];
+					var eventDateTime = eventDate.Date + time;
+
 					events.Add(new CycleEventEntity
 					{
 						Name = names[i % names.Count],
 						Description = descriptions[i % descriptions.Count],
-						Date = eventDate,
+						Date = eventDateTime,
 						Location = locations[i % locations.Count],
 						Attendees = new List<UserEntity>(), // or List<User> if you have a User class
 						MaxAttendees = rand.Next(10, 110)

@@ -41,10 +41,11 @@ export class EditEventComponent {
     id: new FormControl(0),
     name: new FormControl(''),
     description: new FormControl(''),
-    date: new FormControl(''),
+    date: new FormControl<Date>(new Date()),
+    time: new FormControl(''), // Add time control
     location: new FormControl(''),
-    attendees: new FormControl<number[]>([]), // Assuming attendees is an array of user IDs
-    maxAttendees: new FormControl(0) // Assuming maxAttendees is a number
+    attendees: new FormControl<number[]>([]),
+    maxAttendees: new FormControl(0)
   });
 
   constructor() {
@@ -59,16 +60,24 @@ export class EditEventComponent {
     effect(() => {
       const event = this.editEventStore.cycleEvent();
       if (event) {
-        if (!this.originalEvent)
-        {
-          this.originalEvent = { ...event }; // Store the original event
+        if (!this.originalEvent) {
+          this.originalEvent = { ...event };
         }
         
+        const eventDate = event.date ? new Date(event.date) : new Date();
+
+        const d = new Date(eventDate);
+        d.setHours(0, 0, 0, 0);
+
+        const t = eventDate.toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' });
+
+        console.log('Setting form values for event:', t);
         this.eventForm.setValue({
           id: event.id,
           name: event.name,
           description: event.description,
-          date: event.date ? event.date.toISOString().split('T')[0] : '',
+          date: d,
+          time: t,
           location: event.location,
           attendees: event.attendees || [],
           maxAttendees: event.maxAttendees || 0
@@ -82,6 +91,21 @@ export class EditEventComponent {
 
   onSubmit() {
     const id = this.editEventStore.eventId();
+    const formDate = this.eventForm.value.date;
+    let formTime: Date | undefined = undefined;
+    if (this.eventForm.value.time) {
+      const [hours, minutes] = this.eventForm.value.time.split(':').map(Number);
+      formTime = new Date(1970, 0, 1, hours, minutes);
+    }
+
+    let combinedDate: Date | undefined;
+    if (formDate && formTime) {
+      combinedDate = new Date(formDate);
+      combinedDate.setHours(formTime.getHours(), formTime.getMinutes(), 0, 0);
+    }
+
+    console.log(formDate);
+    console.log(formTime)
     const updatedEvent: CycleEventUpdateRequest = {
       name: this.eventForm.value.name != this.originalEvent?.name
         ? this.eventForm.value.name || ''
@@ -89,7 +113,7 @@ export class EditEventComponent {
       description: this.eventForm.value.description != this.originalEvent?.description
         ? this.eventForm.value.description || ''
         : undefined,
-      date: this.eventForm.value.date ? new Date(this.eventForm.value.date) : undefined,
+      date: combinedDate,
       location: this.eventForm.value.location != this.originalEvent?.location
         ? this.eventForm.value.location || ''
         : undefined,
@@ -103,22 +127,26 @@ export class EditEventComponent {
   }
 
   isFormChanged(): boolean {
-      if (!this.originalEvent) return false;
+    if (!this.originalEvent) return false;
 
-    // Normalize date to YYYY-MM-DD string for both
     const originalDate = this.originalEvent.date
-      ? new Date(this.originalEvent.date).toISOString().split('T')[0]
-      : '';
-    const selectedEventDate: Date = this.eventForm.value.date ? new Date(this.eventForm.value.date) : new Date();
+      ? new Date(this.originalEvent.date)
+      : new Date();
+    
+  
+    const o = new Date(originalDate);
+    o.setHours(0, 0, 0, 0);
+    const t = new Date(originalDate);
+    t.setFullYear(1970, 0, 1);
+    const originalDateStr = originalDate.toISOString().split('T')[0];
+    const originalTimeStr = originalDate.toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' });
 
-    const formDate = selectedEventDate.toISOString().split('T')[0];
-
-    // Compare all fields
     const isChanged =
       (this.eventForm.value.name || '') !== (this.originalEvent.name || '') ||
       (this.eventForm.value.description || '') !== (this.originalEvent.description || '') ||
       (this.eventForm.value.location || '') !== (this.originalEvent.location || '') ||
-      formDate !== originalDate;
+      this.eventForm.value.date !== o ||
+      this.eventForm.value.time !== originalTimeStr;
 
     return isChanged;
   }

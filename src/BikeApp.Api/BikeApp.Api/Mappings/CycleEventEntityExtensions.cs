@@ -14,7 +14,7 @@ namespace BikeApp.Api.Mappings
 				Id = entity.Id,
 				Name = entity.Name,
 				Description = entity.Description,
-				Date = entity.Date,
+				Date = entity.Date.ToUniversalTime(),
 				Location = entity.Location,
 				   Attendees = entity.Attendees != null ? entity.Attendees.Select(u => u.Id).ToList() : new List<int>(),
 				MaxAttendees = entity.MaxAttendees

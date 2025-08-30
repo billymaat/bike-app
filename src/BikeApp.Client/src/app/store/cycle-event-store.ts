@@ -85,6 +85,7 @@ export const CycleEventStore = signalStore(
     ),
     updateCycleEvent: rxMethod<{ id: number, request: CycleEventUpdateRequest}>(
       pipe(
+        tap(() => console.log("HERE")),
         switchMap((input) =>
           cycleEventService.updateCycleEvent(input.id, input.request).pipe(
             tap((updated) => {
