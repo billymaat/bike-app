@@ -12,8 +12,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ViewUserDialog } from './view-user-dialog.component';
 import { User, UserRole } from '../../models/user';
 import { CurrentUserStore } from '../../store/current-user-store';
-import { MatSelectModule } from '@angular/material/select';
-import { FormsModule } from '@angular/forms';
+
 
 @Component({
   selector: 'app-users',
@@ -25,8 +24,7 @@ import { FormsModule } from '@angular/forms';
     MatSortModule,
     MatIconModule,
     MatDialogModule,
-    MatSelectModule,
-    FormsModule
+
   ],
   templateUrl: './users.page.html',
   styleUrl: './users.page.scss'
@@ -38,12 +36,6 @@ export class UsersPage implements AfterViewInit {
   currentUserStore = inject(CurrentUserStore);
 
   dataSource = new MatTableDataSource();
-  roles = Object.values(UserRole);
-  selectedRoles = new Map<number, UserRole>();
-  isAdmin = computed(() => {
-    const user = this.currentUserStore.getUser()();
-    return user?.role === UserRole.admin;
-  });
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor() {
@@ -84,22 +76,7 @@ export class UsersPage implements AfterViewInit {
     });
   }
 
-  onRoleSelect(userId: number, role: UserRole) {
-    this.selectedRoles.set(userId, role);
-  }
 
-  updateRole(userId: number) {
-    const newRole = this.selectedRoles.get(userId);
-    if (newRole) {
-      this.store.updateUserRole({ userId, role: newRole });
-      this.selectedRoles.delete(userId);
-    }
-  }
-
-  hasRoleChange(userId: number, currentRole: string): boolean {
-    const selectedRole = this.selectedRoles.get(userId);
-    return selectedRole !== undefined && selectedRole !== currentRole;
-  }
 }
 
 function compare(a: string, b: string, isAsc: boolean) {

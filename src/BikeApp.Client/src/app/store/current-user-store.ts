@@ -31,9 +31,6 @@ export const CurrentUserStore = signalStore(
         clearUser: () => {
             patchState(store, { user: null });
         },
-        getUser: () => {
-            return store.user;
-        },
         login: () => {
             const usrs = userStore.users()
             if (usrs == null) {
