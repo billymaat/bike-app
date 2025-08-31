@@ -32,6 +32,20 @@
                 <mat-icon>visibility</mat-icon>
                 View
             </button>
+            <ng-container *ngIf="isAdmin()">
+                <mat-select [value]="user.role" (selectionChange)="onRoleSelect(user.id, $event.value)" class="role-select">
+                    <mat-option *ngFor="let role of roles" [value]="role">
+                        {{ role }}
+                    </mat-option>
+                </mat-select>
+                <button mat-button color="accent" 
+                        *ngIf="hasRoleChange(user.id, user.role)"
+                        (click)="updateRole(user.id)"
+                        class="update-button">
+                    <mat-icon>save</mat-icon>
+                    Update
+                </button>
+            </ng-container>
         </mat-cell>
         </ng-container>
 

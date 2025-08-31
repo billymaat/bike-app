@@ -608,6 +608,57 @@ export class UsersClient {
         }
         return _observableOf(null as any);
     }
+
+    updateUserRole(id: number, userRoleDto: UserRoleDto | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/Users/UpdateUserRole/{id}?";
+        if (id === undefined || id === null)
+            throw new globalThis.Error("The parameter 'id' must be defined.");
+        url_ = url_.replace("{id}", encodeURIComponent("" + id));
+        if (userRoleDto === null)
+            throw new globalThis.Error("The parameter 'userRoleDto' cannot be null.");
+        else if (userRoleDto !== undefined)
+            url_ += "userRoleDto=" + encodeURIComponent("" + userRoleDto) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processUpdateUserRole(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processUpdateUserRole(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<void>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<void>;
+        }));
+    }
+
+    protected processUpdateUserRole(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return _observableOf(null as any);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
 }
 
 @Injectable({
@@ -800,12 +851,12 @@ export interface ICycleEventAddRequestDto {
 }
 
 export class CycleEventUpdateRequestDto implements ICycleEventUpdateRequestDto {
-    name?: string;
-    description?: string;
-    date?: Date;
-    location?: string;
-    attendees?: number[];
-    maxAttendees?: number;
+    name?: string | undefined;
+    description?: string | undefined;
+    date?: Date | undefined;
+    location?: string | undefined;
+    attendees?: number[] | undefined;
+    maxAttendees?: number | undefined;
 
     constructor(data?: ICycleEventUpdateRequestDto) {
         if (data) {
@@ -855,12 +906,12 @@ export class CycleEventUpdateRequestDto implements ICycleEventUpdateRequestDto {
 }
 
 export interface ICycleEventUpdateRequestDto {
-    name?: string;
-    description?: string;
-    date?: Date;
-    location?: string;
-    attendees?: number[];
-    maxAttendees?: number;
+    name?: string | undefined;
+    description?: string | undefined;
+    date?: Date | undefined;
+    location?: string | undefined;
+    attendees?: number[] | undefined;
+    maxAttendees?: number | undefined;
 }
 
 export class UserDto implements IUserDto {

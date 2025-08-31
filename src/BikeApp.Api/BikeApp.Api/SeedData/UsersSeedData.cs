@@ -20,7 +20,7 @@ public static class UsersSeedData
 				Relationship = "Sister",
 				Phone = "+44 7700 900051"
 			},
-			Role = "Admin"
+			Role = UserRoleEntity.Admin
 		},
 		new UserEntity
 		{
@@ -38,7 +38,7 @@ public static class UsersSeedData
 				Relationship = "Brother",
 				Phone = "+44 7700 900052"
 			},
-			Role = "Admin"
+			Role = UserRoleEntity.Admin
 		},
 		new UserEntity
 		{
@@ -56,7 +56,7 @@ public static class UsersSeedData
 				Relationship = "Mother",
 				Phone = "+44 7700 900053"
 			},
-			Role = "Admin"
+			Role = UserRoleEntity.Admin
 		},
 		new UserEntity
 		{
@@ -74,7 +74,7 @@ public static class UsersSeedData
 				Relationship = "Father",
 				Phone = "+44 7700 900054"
 			},
-			Role = "Admin"
+			Role = UserRoleEntity.Member
 		},
 		new UserEntity
 		{
@@ -92,7 +92,7 @@ public static class UsersSeedData
 				Relationship = "Wife",
 				Phone = "+44 7700 900055"
 			},
-			Role = "Admin"
+			Role = UserRoleEntity.Member
 		},
 		new UserEntity
 		{
@@ -110,7 +110,7 @@ public static class UsersSeedData
 				Relationship = "Brother",
 				Phone = "+44 7700 900056"
 			},
-			Role = "Admin"
+			Role = UserRoleEntity.Member
 		},
 		new UserEntity
 		{
@@ -128,7 +128,7 @@ public static class UsersSeedData
 				Relationship = "Sister",
 				Phone = "+44 7700 900057"
 			},
-			Role = "Admin"
+			Role = UserRoleEntity.Member
 		},
 		new UserEntity
 		{
@@ -146,7 +146,7 @@ public static class UsersSeedData
 				Relationship = "Brother",
 				Phone = "+44 7700 900058"
 			},
-			Role = "Admin"
+			Role = UserRoleEntity.Organizer
 		},
 		new UserEntity
 		{
@@ -164,7 +164,7 @@ public static class UsersSeedData
 				Relationship = "Sister",
 				Phone = "+44 7700 900059"
 			},
-			Role = "Admin"
+			Role = UserRoleEntity.Organizer
 		},
 		new UserEntity
 		{
@@ -182,7 +182,7 @@ public static class UsersSeedData
 				Relationship = "Brother",
 				Phone = "+44 7700 900060"
 			},
-			Role = "Admin"
+			Role = UserRoleEntity.Organizer
 		},
 		// ...continue for all other users as in the TypeScript file...
 	};

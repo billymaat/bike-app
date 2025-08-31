@@ -1,7 +1,8 @@
 import { inject, Injectable } from '@angular/core';
 import { UsersClient } from '../api/api';
 import { UserMapper } from '../mapping/user.mapper';
-import { map } from 'rxjs';
+import { map, Observable, of } from 'rxjs';
+import { UserRole } from '../models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -21,5 +22,11 @@ export class UsersService {
     return this.usersClient.get(userId).pipe(
       map(user => UserMapper.fromDto(user))
     );
+  }
+
+  updateUserRole(userId: number, role: UserRole) : Observable<void> {
+    // Implementation will be added later
+    const dto = UserMapper.mapUserRoleToRoleDto(role);
+    return this.usersClient.updateUserRole(userId, dto);
   }
 }

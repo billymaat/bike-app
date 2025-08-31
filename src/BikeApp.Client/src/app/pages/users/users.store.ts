@@ -1,6 +1,6 @@
 import { patchState, signalStore, withComputed, withHooks, withMethods, withState } from "@ngrx/signals";
-import { User } from "../../models/user";
-import { addEntity, setAllEntities, withEntities } from "@ngrx/signals/entities";
+import { User, UserRole } from "../../models/user";
+import { addEntity, setAllEntities, updateEntity, withEntities } from "@ngrx/signals/entities";
 import { rxMethod } from "@ngrx/signals/rxjs-interop";
 import { pipe, tap, switchMap, catchError, of } from "rxjs";
 import { UsersService } from "../../services/users.service";
@@ -89,6 +89,22 @@ export const UserStore = signalStore(
             })
           )
       ))
+    ),
+    updateUserRole: rxMethod<{userId: number, role: UserRole}>(
+      pipe(
+        switchMap(({userId, role}) =>
+          usersService.updateUserRole(userId, role).pipe(
+            tap(() => {
+              // Reload the user to get updated data
+              patchState(store, updateEntity({ id: userId, changes: { role } }));
+            }),
+            catchError((err) => {
+              console.error(err);
+              return of(null);
+            })
+          )
+        )
+      )
     )
   })),
   withComputed((state) => ({

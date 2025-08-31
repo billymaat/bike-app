@@ -1,5 +1,6 @@
 ﻿using BikeApp.Api.Db;
 using BikeApp.Api.Dto;
+using BikeApp.Api.Entity;
 using BikeApp.Api.Mappings;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -58,6 +59,22 @@ namespace BikeApp.Api.Controllers
 		[HttpDelete("{id}")]
 		public void Delete(int id)
 		{
+		}
+
+		[HttpPut("UpdateUserRole/{id}")]
+		[ProducesResponseType(StatusCodes.Status200OK)]
+		public IActionResult UpdateUserRole(int id, UserRoleDto userRoleDto)
+		{
+			var user = _context.Users.FirstOrDefault(i => i.Id == id);
+			if (user == null)
+			{
+				return NotFound();
+			}
+
+			user.Role = (UserRoleEntity)userRoleDto;
+
+			_context.SaveChanges();
+			return Ok();
 		}
 	}
 }

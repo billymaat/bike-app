@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BikeApp.Api.Migrations
 {
     [DbContext(typeof(BikeAppDbContext))]
-    [Migration("20250829203814_InitialCreate")]
+    [Migration("20250831104816_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -120,9 +120,8 @@ namespace BikeApp.Api.Migrations
                     b.Property<string>("Phone")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("Role")
-                        .IsRequired()
-                        .HasColumnType("longtext");
+                    b.Property<int>("Role")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

@@ -1,0 +1,19 @@
+.page-container {
+    padding: 20px;
+
+    .mat-table {
+        width: 100%;
+    }
+
+    .role-select {
+        margin-left: 16px;
+        width: 120px;
+        vertical-align: middle;
+    }
+
+    .update-button {
+        margin-left: 8px;
+        min-width: 100px;
+        vertical-align: middle;
+    }
+}

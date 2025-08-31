@@ -1,4 +1,4 @@
-import { User } from '../models/user';
+import { User, UserRole } from '../models/user';
 import { UserDto, EmergencyContactDto, UserRoleDto } from '../api/api';
 
 export class UserMapper {
@@ -46,20 +46,20 @@ export class UserMapper {
     });
   }
 
-  private static mapRoleDtoToUserRole(roleDto?: UserRoleDto): any {
+  static mapRoleDtoToUserRole(roleDto?: UserRoleDto): UserRole {
     switch (roleDto) {
-      case UserRoleDto.Admin: return 'admin';
-      case UserRoleDto.Organizer: return 'organizer';
-      case UserRoleDto.Member: return 'member';
-      default: return 'member';
+      case UserRoleDto.Admin: return UserRole.admin;
+      case UserRoleDto.Organizer: return UserRole.organizer;
+      case UserRoleDto.Member: return UserRole.member;
+      default: return UserRole.member;
     }
   }
 
-  private static mapUserRoleToRoleDto(role: string): UserRoleDto {
+  static mapUserRoleToRoleDto(role: UserRole): UserRoleDto {
     switch (role) {
-      case 'admin': return UserRoleDto.Admin;
-      case 'organizer': return UserRoleDto.Organizer;
-      case 'member': return UserRoleDto.Member;
+      case UserRole.admin: return UserRoleDto.Admin;
+      case UserRole.organizer: return UserRoleDto.Organizer;
+      case UserRole.member: return UserRoleDto.Member;
       default: return UserRoleDto.Member;
     }
   }

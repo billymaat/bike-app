@@ -75,8 +75,7 @@ namespace BikeApp.Api.Migrations
                     Phone = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     EmergencyContactId = table.Column<int>(type: "int", nullable: true),
-                    Role = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Role = table.Column<int>(type: "int", nullable: false),
                     CycleEventEntityId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>

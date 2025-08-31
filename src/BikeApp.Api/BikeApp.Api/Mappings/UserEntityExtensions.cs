@@ -26,7 +26,7 @@ namespace BikeApp.Api.Mappings
                         Relationship = entity.EmergencyContact.Relationship,
                         Phone = entity.EmergencyContact.Phone
                     },
-                Role = Enum.TryParse<UserRole>(entity.Role, true, out var role) ? role : UserRole.Member
+                Role = (UserRole)entity.Role
             };
         }
 
@@ -48,7 +48,7 @@ namespace BikeApp.Api.Mappings
                     Relationship = model.EmergencyContact.Relationship,
                     Phone = model.EmergencyContact.Phone
                 },
-                Role = model.Role.ToString()
+                Role = (UserRoleEntity)model.Role
             };
         }
 
@@ -72,7 +72,7 @@ namespace BikeApp.Api.Mappings
                         Relationship = entity.EmergencyContact.Relationship,
                         Phone = entity.EmergencyContact.Phone
                     },
-		        Role = Enum.TryParse<UserRoleDto>(entity.Role, true, out var role) ? role : UserRoleDto.Member
+		        Role = (UserRoleDto)entity.Role
 	        };
         }
 	}
