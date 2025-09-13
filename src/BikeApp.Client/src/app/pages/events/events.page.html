@@ -1,56 +1,83 @@
 <div class="page-container">
-  <calendar [cycleEvents]="store.allEvents()"></calendar>
   <h1 class="mat-h1">Events</h1>
-  <form 
-    class="filter-form"
-    style="display: flex; flex-direction: column; justify-content: center; align-items: start; gap: 16px;"
-  [formGroup]="filterForm" (ngSubmit)="applyFilters()">
-    <div style="display: flex; flex-direction: row;">
-      <mat-form-field appearance="outline" style="flex: 1;">
-        <mat-label>Filter events</mat-label>
-        <input matInput formControlName="name" placeholder="Search by name or location" />
-      </mat-form-field>
-      <mat-form-field appearance="outline">
-        <mat-label>Start Date</mat-label>
-        <input matInput [matDatepicker]="startPicker" formControlName="startDate" />
-        <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
-        <mat-datepicker #startPicker></mat-datepicker>
-      </mat-form-field>
-      <mat-form-field appearance="outline">
-        <mat-label>End Date</mat-label>
-        <input matInput [matDatepicker]="endPicker" formControlName="endDate" />
-        <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
-        <mat-datepicker #endPicker></mat-datepicker>
-      </mat-form-field>
-    </div>
-  </form>
-
-  <div class="event-list">
-    <form [formGroup]="filterForm">
-      <mat-form-field appearance="outline" class="mat-h2" style="width: 300px;">
-        <mat-label>Show</mat-label>
-        <mat-select formControlName="eventType">
-          <mat-option value="upcoming">Upcoming Events</mat-option>
-          <mat-option value="past">Past Events</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </form>
-    <div>
-      <button mat-raised-button color="primary" (click)="selectEventTmp()">Edit Event</button>
-    </div>
-    <div class="event-list-container">
-      @for (event of events(); track event.id) {
-        <div style="margin-bottom: 16px;">
-          <cycle-event [cycleEvent]="event" 
-          [showEditButton]="true"
-          [showDeleteButton]="true"
-          [showViewEventButton]="true"
-          (editClicked)="selectEvent(event)" 
-          (deleteClicked)="deleteEvent($event, event)"
-          (viewClicked)="viewEvent(event)">
-          </cycle-event>
-        </div>
-      }
-    </div>
+  
+  <!-- View Toggle Buttons -->
+  <div class="view-toggle" style="margin-bottom: 16px;">
+    <button 
+      mat-raised-button 
+      [color]="viewMode() === 'calendar' ? 'primary' : 'basic'"
+      (click)="setViewMode('calendar')"
+      style="margin-right: 8px;">
+      <mat-icon>calendar_today</mat-icon>
+      Calendar View
+    </button>
+    <button 
+      mat-raised-button 
+      [color]="viewMode() === 'list' ? 'primary' : 'basic'"
+      (click)="setViewMode('list')">
+      <mat-icon>list</mat-icon>
+      List View
+    </button>
   </div>
+
+  <!-- Calendar View -->
+  @if (viewMode() === 'calendar') {
+    <calendar [cycleEvents]="store.allEvents()"></calendar>
+  }
+
+  <!-- List View -->
+  @if (viewMode() === 'list') {
+    <form 
+      class="filter-form"
+      style="display: flex; flex-direction: column; justify-content: center; align-items: start; gap: 16px;"
+    [formGroup]="filterForm" (ngSubmit)="applyFilters()">
+      <div style="display: flex; flex-direction: row;">
+        <mat-form-field appearance="outline" style="flex: 1;">
+          <mat-label>Filter events</mat-label>
+          <input matInput formControlName="name" placeholder="Search by name or location" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Start Date</mat-label>
+          <input matInput [matDatepicker]="startPicker" formControlName="startDate" />
+          <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+          <mat-datepicker #startPicker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>End Date</mat-label>
+          <input matInput [matDatepicker]="endPicker" formControlName="endDate" />
+          <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+          <mat-datepicker #endPicker></mat-datepicker>
+        </mat-form-field>
+      </div>
+    </form>
+
+    <div class="event-list">
+      <form [formGroup]="filterForm">
+        <mat-form-field appearance="outline" class="mat-h2" style="width: 300px;">
+          <mat-label>Show</mat-label>
+          <mat-select formControlName="eventType">
+            <mat-option value="upcoming">Upcoming Events</mat-option>
+            <mat-option value="past">Past Events</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </form>
+      <div>
+        <button mat-raised-button color="primary" (click)="selectEventTmp()">Edit Event</button>
+      </div>
+      <div class="event-list-container">
+        @for (event of events(); track event.id) {
+          <div style="margin-bottom: 16px;">
+            <cycle-event [cycleEvent]="event" 
+            [showEditButton]="true"
+            [showDeleteButton]="true"
+            [showViewEventButton]="true"
+            (editClicked)="selectEvent(event)" 
+            (deleteClicked)="deleteEvent($event, event)"
+            (viewClicked)="viewEvent(event)">
+            </cycle-event>
+          </div>
+        }
+      </div>
+    </div>
+  }
 </div>

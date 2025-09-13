@@ -47,6 +47,7 @@ import { CalendarComponent } from '../../components/calendar/calendar.component'
 export class EventsPage {
 
   events: Signal<CycleEvent[]>
+  viewMode = signal<'calendar' | 'list'>('list'); // Default to list view
 
   store = inject(EventsStore);
   router = inject(Router);
@@ -119,5 +120,13 @@ export class EventsPage {
       eventType: this.filterForm.value.eventType || EventTypeFilter.Upcoming
     }
     this.store.setFilter(query);
+  }
+
+  setViewMode(mode: 'calendar' | 'list') {
+    this.viewMode.set(mode);
+  }
+
+  toggleView() {
+    this.viewMode.set(this.viewMode() === 'calendar' ? 'list' : 'calendar');
   }
 }
