@@ -1,89 +1,9 @@
-<div class="page-container">
-  <ng-container *ngIf="store.event() as event; else loading">
-    
-    <!-- Main Event Card -->
-    <mat-card class="event-card">
-      <mat-card-header>
-        <mat-card-title>{{ event.name }}</mat-card-title>
-        <mat-card-subtitle>Event Details</mat-card-subtitle>
-      </mat-card-header>
-      
-      <mat-card-content>
-        <div class="event-details">
-          <div class="detail-item">
-            <mat-icon>event</mat-icon>
-            <span class="detail-label">Date & Time:</span>
-            <span class="detail-value">{{ event.date | date:'fullDate' }} at {{ event.date | date:'shortTime' }}</span>
-          </div>
-          
-          <mat-divider></mat-divider>
-          
-          <div class="detail-item">
-            <mat-icon>location_on</mat-icon>
-            <span class="detail-label">Location:</span>
-            <span class="detail-value">{{ event.location || 'No location specified' }}</span>
-          </div>
-          
-          <mat-divider></mat-divider>
-          
-          <div class="detail-item">
-            <mat-icon>group</mat-icon>
-            <span class="detail-label">Attendees:</span>
-            <span class="detail-value">{{ event.attendees.length || 0 }} / {{ event.maxAttendees || 'Unlimited' }}</span>
-          </div>
-          
-          <mat-divider *ngIf="event.description"></mat-divider>
-          
-          <div class="detail-item description" *ngIf="event.description">
-            <mat-icon>description</mat-icon>
-            <span class="detail-label">Description:</span>
-            <div class="detail-value description-text">{{ event.description }}</div>
-          </div>
-        </div>
-      </mat-card-content>
-      
-      <mat-card-actions>
-        <button mat-raised-button color="primary" (click)="attendEvent()" [disabled]="store.isAttending()">
-          <mat-icon>check_circle</mat-icon>
-          Attend
-        </button>
-        <button mat-raised-button color="warn" (click)="notAttendEvent()" [disabled]="!store.isAttending()">
-          <mat-icon>cancel</mat-icon>
-          Not Attending
-        </button>
-      </mat-card-actions>
-    </mat-card>
-
-    <!-- Attendees Card -->
-    <mat-card class="attendees-card" *ngIf="store.attendingUsers().length > 0">
-      <mat-card-header>
-        <mat-card-title>
-          <mat-icon>people</mat-icon>
-          Attendees ({{ store.attendingUsers().length }})
-        </mat-card-title>
-      </mat-card-header>
-      
-      <mat-card-content>
-        <mat-list>
-          <mat-list-item *ngFor="let user of store.attendingUsers()">
-            <mat-icon matListItemIcon>person</mat-icon>
-            <div matListItemTitle>{{ user.firstName }} {{ user.lastName }}</div>
-            <div matListItemLine *ngIf="user.email">{{ user.email }}</div>
-          </mat-list-item>
-        </mat-list>
-      </mat-card-content>
-    </mat-card>
-
-  </ng-container>
-  
-  <ng-template #loading>
-    <mat-card>
-      <mat-card-content>
-        <div class="loading-container">
-          <mat-icon>hourglass_empty</mat-icon>
-          <p>Loading event details...</p>
-        </div>
-      </mat-card-content>
-    </mat-card>
-  </ng-template>
-</div>
+<app-event-details 
+  [event]="store.event()"
+  [attendingUsers]="store.attendingUsers()"
+  [isAttending]="store.isAttending()"
+  [showActions]="true"
+  [isDialog]="false"
+  (attendEvent)="attendEvent()"
+  (notAttendEvent)="notAttendEvent()">
+</app-event-details>

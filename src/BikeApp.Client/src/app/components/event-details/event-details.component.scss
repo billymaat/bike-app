@@ -1,0 +1,126 @@
+.event-details-container {
+  &:not(.dialog-mode) {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  &.dialog-mode {
+    .event-card {
+      margin-bottom: 16px;
+      box-shadow: none;
+      
+      mat-card-header {
+        position: relative;
+        
+        .close-button {
+          position: absolute;
+          top: 8px;
+          right: 8px;
+        }
+      }
+    }
+  }
+}
+
+.event-card, .attendees-card {
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.event-details {
+  .detail-item {
+    display: flex;
+    align-items: flex-start;
+    padding: 12px 0;
+    gap: 12px;
+
+    mat-icon {
+      color: #666;
+      margin-top: 2px;
+    }
+
+    .detail-label {
+      font-weight: 500;
+      min-width: 120px;
+      color: #333;
+    }
+
+    .detail-value {
+      flex: 1;
+      color: #555;
+    }
+
+    &.description {
+      align-items: flex-start;
+      
+      .detail-value.description-text {
+        white-space: pre-wrap;
+        line-height: 1.6;
+      }
+    }
+  }
+}
+
+mat-card-actions {
+  display: flex;
+  gap: 12px;
+  padding: 16px 24px;
+
+  button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+}
+
+.attendees-card {
+  mat-card-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  mat-list {
+    padding-top: 0;
+  }
+
+  mat-list-item {
+    border-bottom: 1px solid #eee;
+    
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px;
+  color: #666;
+
+  mat-icon {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+    margin-bottom: 16px;
+  }
+}
+
+// Dialog specific styles
+.dialog-mode {
+  .event-card, .attendees-card {
+    margin-bottom: 16px;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .attendees-card {
+    max-height: 300px;
+    overflow-y: auto;
+  }
+}

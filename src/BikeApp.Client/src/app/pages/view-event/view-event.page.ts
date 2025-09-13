@@ -2,23 +2,12 @@ import { Component, computed, effect, inject, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ViewEventStore } from './view-event.store';
-import { MatButtonModule } from '@angular/material/button';
-import { UserStore } from '../users/users.store';
-import { MatListModule } from '@angular/material/list';
-import { MatIconModule } from '@angular/material/icon';
-import { MatCardModule } from '@angular/material/card';
-import { MatChipsModule } from '@angular/material/chips';
-import { MatDividerModule } from '@angular/material/divider';
+import { EventDetailsComponent } from '../../components/event-details/event-details.component';
 
 @Component({
   selector: 'app-view-event',
   imports: [CommonModule,
-     MatButtonModule,
-    MatListModule,
-    MatIconModule,
-    MatCardModule,
-    MatChipsModule,
-    MatDividerModule
+    EventDetailsComponent
   ],
   providers: [ViewEventStore],
   templateUrl: './view-event.page.html',

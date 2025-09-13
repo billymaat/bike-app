@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { EditEventComponent } from '../edit-event/edit-event.page';
+import { EventDetailsComponent } from '../../components/event-details/event-details.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -89,6 +90,19 @@ export class EventsPage {
 
   viewEvent(event: CycleEvent) {
     this.router.navigate(['/view-event', event.id]);
+  }
+
+  viewEventInDialog(event: CycleEvent) {
+    this.dialog.open(EventDetailsComponent, {
+      width: '600px',
+      maxHeight: '80vh',
+      data: {
+        event: event,
+        attendingUsers: [], // You would populate this from your store/service
+        isAttending: false, // You would get this from your store/service
+        showActions: true
+      }
+    });
   }
 
   deleteEvent(evt: any, event: CycleEvent) {
