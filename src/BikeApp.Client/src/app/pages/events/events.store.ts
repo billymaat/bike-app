@@ -54,6 +54,9 @@ export const EventsStore = signalStore(
     withComputed((state, cycleEventStore = inject(CycleEventStore), cycleEventFilterService = inject(CycleEventsFilterService)) => ({
         filteredEvents: computed(() => {
             return cycleEventFilterService.filterEvents(cycleEventStore.entities(), state.filter());
-        })
+        }),
+        allEvents: computed(() => {
+            return cycleEventStore.entities();
+        }),
     }))
 )

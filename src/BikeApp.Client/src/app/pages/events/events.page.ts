@@ -19,6 +19,7 @@ import { CycleEventComponent } from "../../components/cycle-event/cycle-event.co
 import { MatSelectModule } from '@angular/material/select';
 import { EventTypeFilter } from '../../services/cycle-events-filter.service';
 import { DeleteEventDialogComponent } from './delete-event-dialog.component';
+import { CalendarComponent } from '../../components/calendar/calendar.component';
 
 @Component({
   selector: 'app-events',
@@ -36,7 +37,8 @@ import { DeleteEventDialogComponent } from './delete-event-dialog.component';
     MatDatepickerModule,
     CycleEventComponent,
     MatOptionModule,
-    MatSelectModule
+    MatSelectModule,
+    CalendarComponent
 ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './events.page.html',
