@@ -24,7 +24,7 @@
   @if (viewMode() === 'calendar') {
     <calendar 
     [cycleEvents]="store.allEvents()"
-    (eventClicked)="selectEvent($event)"></calendar>
+    (eventClicked)="viewEvent($event)"></calendar>
   }
 
   <!-- List View -->

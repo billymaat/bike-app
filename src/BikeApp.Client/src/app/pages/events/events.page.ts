@@ -87,6 +87,10 @@ export class EventsPage {
     })
   }
 
+  viewEvent(event: CycleEvent) {
+    this.router.navigate(['/view-event', event.id]);
+  }
+
   deleteEvent(evt: any, event: CycleEvent) {
     const dialogRef = this.dialog.open(DeleteEventDialogComponent, {
       width: '400px',
@@ -98,10 +102,6 @@ export class EventsPage {
         this.store.removeCycleEvent(event.id);
       }
     });
-  }
-  
-  viewEvent(cycleEvent: CycleEvent) {
-    this.router.navigate(['/view-event', cycleEvent.id]);
   }
 
   applyFilters() {

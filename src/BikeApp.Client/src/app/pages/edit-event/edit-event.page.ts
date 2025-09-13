@@ -51,6 +51,7 @@ export class EditEventComponent {
   constructor() {
     console.log("EditEventComponent initialized with data:", this.data);
     console.log(this.data.eventId);
+    
     this.activatedRoute.params.subscribe(params => {
       if (params['id']) {
         this.editEventStore.setEventId(+params['id']);

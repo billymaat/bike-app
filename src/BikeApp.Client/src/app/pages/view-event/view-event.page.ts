@@ -6,13 +6,19 @@ import { MatButtonModule } from '@angular/material/button';
 import { UserStore } from '../users/users.store';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatDividerModule } from '@angular/material/divider';
 
 @Component({
   selector: 'app-view-event',
   imports: [CommonModule,
      MatButtonModule,
     MatListModule,
-    MatIconModule
+    MatIconModule,
+    MatCardModule,
+    MatChipsModule,
+    MatDividerModule
   ],
   providers: [ViewEventStore],
   templateUrl: './view-event.page.html',
