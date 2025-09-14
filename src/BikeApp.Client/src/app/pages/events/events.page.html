@@ -67,8 +67,8 @@
         @for (event of events(); track event.id) {
           <div style="margin-bottom: 16px;">
             <cycle-event [cycleEvent]="event" 
-            [showEditButton]="true"
-            [showDeleteButton]="true"
+            [showEditButton]="isAdmin()"
+            [showDeleteButton]="isAdmin()"
             [showViewEventButton]="true"
             (editClicked)="selectEvent(event)" 
             (deleteClicked)="deleteEvent($event, event)"

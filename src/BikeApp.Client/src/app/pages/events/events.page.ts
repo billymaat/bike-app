@@ -1,6 +1,8 @@
 import { Component, computed, effect, inject, signal, Signal } from '@angular/core';
 import { CycleEvent } from '../../models/cycle-event';
 import { CycleEventStore } from '../../store/cycle-event-store';
+import { CurrentUserStore } from '../../store/current-user-store';
+import { UserRole } from '../../models/user';
 import { Router } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
@@ -51,8 +53,15 @@ export class EventsPage {
   viewMode = signal<'calendar' | 'list'>('list'); // Default to list view
 
   store = inject(EventsStore);
+  currentUserStore = inject(CurrentUserStore);
   router = inject(Router);
   readonly dialog = inject(MatDialog);
+
+  // Computed property to check if current user is admin
+  isAdmin = computed(() => {
+    const user = this.currentUserStore.user();
+    return user?.role === UserRole.admin;
+  });
 
   filterForm = new FormGroup({
     startDate: new FormControl<Date | null>(null),
