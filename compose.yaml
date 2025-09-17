@@ -3,12 +3,12 @@ version: '3.8'
 services:
   mysql:
     image: mysql:8.0
-    container_name: bikeapp-mysql
+    container_name: cycling-database
     environment:
       MYSQL_ROOT_PASSWORD: examplepassword
       MYSQL_DATABASE: BikeAppDb
     ports:
-      - "3307:3306"
+      - "3308:3306"
     volumes:
       - mysql-data:/var/lib/mysql
     healthcheck:
@@ -18,7 +18,7 @@ services:
 
   api:
     build:
-      context: ../src/BikeApp.Api
+      context: src/BikeApp.Api
       dockerfile: Dockerfile
     container_name: bikeapp-api
     ports:
@@ -29,13 +29,11 @@ services:
     depends_on:
       mysql:
         condition: service_healthy
-    volumes:
-      - ../src/BikeApp.Api:/app/src
     restart: unless-stopped
 
   client:
     build:
-      context: ../src/BikeApp.Client
+      context: src/BikeApp.Client
       dockerfile: Dockerfile
     container_name: bikeapp-client
     ports:
